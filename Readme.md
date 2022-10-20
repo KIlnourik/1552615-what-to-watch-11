@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Ильнур Курмандаев](https://up.htmlacademy.ru/react/11/user/1552615).
-* Наставник: `Неизвестно`.
+* Наставник: [Rail Sakhaviev](https://htmlacademy.ru/profile/id1331891).
 
 ---
 
