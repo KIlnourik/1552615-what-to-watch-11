@@ -1,5 +1,4 @@
 
-
 function FilmCard(): JSX.Element {
   return (
     <article className="small-film-card catalog__films-card">

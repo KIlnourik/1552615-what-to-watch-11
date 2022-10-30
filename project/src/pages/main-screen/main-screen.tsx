@@ -1,13 +1,14 @@
 import FilmCard from '../../components/film-card/film-card';
+import Logo from '../../components/logo/logo';
 
-type MainScreenProps = {
+type Props = {
   filmTitle: string;
   filmGenre: string;
   releaseDate: number;
 };
 
 
-function MainScreen({ filmTitle, filmGenre, releaseDate }: MainScreenProps): JSX.Element {
+function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -19,11 +20,7 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: MainScreenProps): JSX
 
         <header className="page-header film-card__head">
           <div className="logo">
-            <a href="#todo" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            <Logo />
           </div>
 
           <ul className="user-block">
@@ -136,11 +133,7 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: MainScreenProps): JSX
         </section>
         <footer className="page-footer">
           <div className="logo">
-            <a href="#todo" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            <Logo />
           </div>
 
           <div className="copyright">
