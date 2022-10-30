@@ -37,9 +37,8 @@ function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film} element={<FilmScreen />}>
-          <Route path={AppRoute.AddReview} element={<AddReviewScreen />} />
-        </Route>
+        <Route path={AppRoute.Film} element={<FilmScreen />} />
+        <Route path={AppRoute.AddReview} element={<AddReviewScreen />} />
         <Route path={AppRoute.Player} element={<PlayerScreen />} />
         <Route
           path='*'
