@@ -8,14 +8,18 @@ import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
+import { ReviewsTypes } from '../../types/reviews-types';
+import { FilmsTypes } from '../../types/films-types';
 
 type Props = {
   filmTitle: string;
   filmGenre: string;
   releaseDate: number;
+  films: FilmsTypes;
+  reviews: ReviewsTypes;
 };
 
-function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
+function App({ filmTitle, filmGenre, releaseDate, films, reviews }: Props): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
