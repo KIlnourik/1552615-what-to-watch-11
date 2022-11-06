@@ -25,7 +25,7 @@ function App({ filmTitle, filmGenre, releaseDate, films, reviews }: Props): JSX.
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<MainScreen filmTitle={filmTitle} filmGenre={filmGenre} releaseDate={releaseDate} />}
+          element={<MainScreen filmTitle={filmTitle} filmGenre={filmGenre} releaseDate={releaseDate} films={films} />}
         />
         <Route
           path={AppRoute.SignIn}
@@ -37,13 +37,13 @@ function App({ filmTitle, filmGenre, releaseDate, films, reviews }: Props): JSX.
             <PrivateRoute
               authStatus={AuthorizationStatus.NoAuth}
             >
-              <MyListScreen />
+              <MyListScreen films={films} />
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film} element={<FilmScreen />} />
-        <Route path={AppRoute.AddReview} element={<AddReviewScreen />} />
-        <Route path={AppRoute.Player} element={<PlayerScreen />} />
+        <Route path={AppRoute.Film} element={<FilmScreen films={films} />} />
+        <Route path={AppRoute.AddReview} element={<AddReviewScreen films={films} />} />
+        <Route path={AppRoute.Player} element={<PlayerScreen films={films}/>} />
         <Route
           path='*'
           element={<NotFoundScreen />}

@@ -1,16 +1,21 @@
-import FilmCard from '../../components/film-card/film-card';
+import { Fragment } from 'react';
+import {Link } from 'react-router-dom';
+import FilmCardsList from '../../components/film-cards-list/film-cards-list';
 import Logo from '../../components/logo/logo';
+import { AppRoute } from '../../const';
+import { FilmsTypes } from '../../types/films-types';
 
 type Props = {
   filmTitle: string;
   filmGenre: string;
   releaseDate: number;
+  films: FilmsTypes;
 };
 
 
-function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
+function MainScreen({ filmTitle, filmGenre, releaseDate, films }: Props): JSX.Element {
   return (
-    <>
+    <Fragment>
       <section className="film-card">
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
@@ -55,13 +60,13 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
+                <Link to={AppRoute.MyList} className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
                   <span className="film-card__count">9</span>
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -103,30 +108,7 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
               <a href="#todo" className="catalog__genres-link">Thrillers</a>
             </li>
           </ul>
-
-          <div className="catalog__films-list">
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-          </div>
-
+          <FilmCardsList films={films} />
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
@@ -141,7 +123,7 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
           </div>
         </footer>
       </div>
-    </>
+    </Fragment>
   );
 }
 
