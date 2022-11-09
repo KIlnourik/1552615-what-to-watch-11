@@ -1,7 +1,23 @@
-function PlayerScreen(): JSX.Element {
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import {useParams} from 'react-router-dom';
+import { FilmsTypes } from '../../types/films-types';
+
+type Props = {
+  films: FilmsTypes;
+};
+
+function PlayerScreen({films}: Props): JSX.Element {
+
+  const { id } = useParams();
+
+  const activeFilm = films.find((film) => film.id.toString() === id);
+  if (!activeFilm) {
+    return <NotFoundScreen />;
+  }
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={activeFilm.videoLink} className="player__video" poster={activeFilm.posterImage}></video>
 
       <button type="button" className="player__exit">Exit</button>
 

@@ -1,12 +1,20 @@
+import { Link } from 'react-router-dom';
+import { FilmsType } from '../../types/films-types';
 
-function FilmCard(): JSX.Element {
+type Props = {
+  film: FilmsType;
+  isActive: boolean;
+};
+
+function FilmCard({ film, isActive }: Props): JSX.Element {
+  const {id, name, previewImage} = film;
   return (
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card" key={id}>
       <div className="small-film-card__image">
-        <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
+        <img src={previewImage} alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
       </div>
-      <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
+      <h3 className="small-film-card__title" key={id}>
+        <Link to={`films/${id}`} className="small-film-card__link" >{name} </Link>
       </h3>
     </article>
   );

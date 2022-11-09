@@ -8,20 +8,24 @@ import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
+import { ReviewsTypes } from '../../types/reviews-types';
+import { FilmsTypes } from '../../types/films-types';
 
 type Props = {
   filmTitle: string;
   filmGenre: string;
   releaseDate: number;
+  films: FilmsTypes;
+  reviews: ReviewsTypes;
 };
 
-function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
+function App({ filmTitle, filmGenre, releaseDate, films, reviews }: Props): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<MainScreen filmTitle={filmTitle} filmGenre={filmGenre} releaseDate={releaseDate} />}
+          element={<MainScreen filmTitle={filmTitle} filmGenre={filmGenre} releaseDate={releaseDate} films={films} />}
         />
         <Route
           path={AppRoute.SignIn}
@@ -33,17 +37,13 @@ function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
             <PrivateRoute
               authStatus={AuthorizationStatus.NoAuth}
             >
-              <MyListScreen />
+              <MyListScreen films={films} />
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film}>
-          <Route path=':id' element={<FilmScreen />} />
-          <Route path={AppRoute.AddReview} element={<AddReviewScreen />} />
-        </Route>
-        <Route path={AppRoute.Player}>
-          <Route path=':id' element={<PlayerScreen />} />
-        </Route>
+        <Route path={AppRoute.Film} element={<FilmScreen films={films} />} />
+        <Route path={AppRoute.AddReview} element={<AddReviewScreen films={films} />} />
+        <Route path={AppRoute.Player} element={<PlayerScreen films={films}/>} />
         <Route
           path='*'
           element={<NotFoundScreen />}
