@@ -1,17 +1,17 @@
 import FilmCard from '../film-card/film-card';
-import { FilmsType, FilmsTypes } from '../../types/films-types';
+import { Film } from '../../types/films-types';
 import { useState } from 'react';
 
 type Props = {
-  films: FilmsTypes;
+  films: Film[];
 }
 
 function FilmCardsList({ films }: Props): JSX.Element {
-  const [activeFilmId] = useState<string | null>(null);
+  const [activeFilmId] = useState<number | undefined>(undefined);
 
   return (
     <div className="catalog__films-list">
-      {films.map((film: FilmsType) => <FilmCard film={film} isActive={`${film.id}` === activeFilmId} key={film.id} />)}
+      {films.map((film: Film) => <FilmCard film={film} isActive={film.id === activeFilmId} key={film.id} />)}
     </div>
   );
 }

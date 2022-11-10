@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { FilmsType } from '../../types/films-types';
+import { Film } from '../../types/films-types';
 
 type Props = {
-  film: FilmsType;
+  film: Film;
   isActive: boolean;
 };
 

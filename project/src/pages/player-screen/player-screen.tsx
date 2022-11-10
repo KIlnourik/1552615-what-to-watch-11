@@ -1,9 +1,9 @@
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {useParams} from 'react-router-dom';
-import { FilmsTypes } from '../../types/films-types';
+import { Film } from '../../types/films-types';
 
 type Props = {
-  films: FilmsTypes;
+  films: Film[];
 };
 
 function PlayerScreen({films}: Props): JSX.Element {

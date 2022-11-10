@@ -1,13 +1,12 @@
 import Logo from '../../components/logo/logo';
 import FilmCardsList from '../../components/film-cards-list/film-cards-list';
 import FilmCardFull from '../../components/film-card-full/film-card-full';
-import { FilmsTypes } from '../../types/films-types';
-import { Fragment } from 'react';
+import { Film } from '../../types/films-types';
 import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 type Props = {
-  films: FilmsTypes;
+  films: Film[];
 };
 
 function FilmScreen({ films }: Props): JSX.Element {
@@ -20,7 +19,7 @@ function FilmScreen({ films }: Props): JSX.Element {
     return <NotFoundScreen />;
   }
   return (
-    <Fragment>
+    <>
       <FilmCardFull film={activeFilm} />
       <div className="page-content">
         <section className="catalog catalog--like-this">
@@ -41,7 +40,7 @@ function FilmScreen({ films }: Props): JSX.Element {
           </div>
         </footer>
       </div>
-    </Fragment>
+    </>
   );
 }
 

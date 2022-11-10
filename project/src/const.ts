@@ -47,3 +47,5 @@ export const RatingLevels: RatingLevelsType = [
     max: null,
   }
 ];
+
+export const RATING_MAX_VALUE = 10;
