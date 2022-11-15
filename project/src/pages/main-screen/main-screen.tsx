@@ -1,21 +1,20 @@
-import { Fragment } from 'react';
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import FilmCardsList from '../../components/film-cards-list/film-cards-list';
 import Logo from '../../components/logo/logo';
 import { AppRoute } from '../../const';
-import { FilmsTypes } from '../../types/films-types';
+import { Film } from '../../types/films-types';
 
 type Props = {
   filmTitle: string;
   filmGenre: string;
   releaseDate: number;
-  films: FilmsTypes;
+  films: Film[];
 };
 
 
 function MainScreen({ filmTitle, filmGenre, releaseDate, films }: Props): JSX.Element {
   return (
-    <Fragment>
+    <>
       <section className="film-card">
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
@@ -123,7 +122,7 @@ function MainScreen({ filmTitle, filmGenre, releaseDate, films }: Props): JSX.El
           </div>
         </footer>
       </div>
-    </Fragment>
+    </>
   );
 }
 

@@ -1,11 +1,11 @@
-import { FilmsType } from '../../types/films-types';
+import { Film } from '../../types/films-types';
 import { getRatingLevel } from '../../utils/utils';
 import Logo from '../logo/logo';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 type Props = {
-  film: FilmsType;
+  film: Film;
 }
 
 function FilmCardFull({ film }: Props) {

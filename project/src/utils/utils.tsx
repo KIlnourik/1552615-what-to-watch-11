@@ -1,5 +1,6 @@
 import { RatingLevels } from '../const';
 
+
 export function getRatingLevel(rating: number): string {
   let filmRatingLevel = '';
   RatingLevels.forEach((ratingLevel) => {
@@ -10,4 +11,10 @@ export function getRatingLevel(rating: number): string {
   return filmRatingLevel;
 }
 
-
+export function getRatingValues(maxRating: number): number[] {
+  const ratingArray: number[] = [];
+  for (let i = 1; i <= maxRating; i++) {
+    ratingArray.push(i);
+  }
+  return ratingArray;
+}
