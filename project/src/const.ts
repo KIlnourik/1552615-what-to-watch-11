@@ -49,3 +49,5 @@ export const RatingLevels: RatingLevelsType = [
 ];
 
 export const RATING_MAX_VALUE = 10;
+
+export const AUTOPLAY_TIMEOUT = 1000;
