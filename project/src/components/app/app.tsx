@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, FilmTabs } from '../../const';
 import MainScreen from '../../pages/main-screen/main-screen';
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import FilmScreen from '../../pages/film-screen/film-screen';
@@ -8,8 +8,10 @@ import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
+import Tabs from '../tabs/tabs';
 import { Review } from '../../types/reviews-types';
 import { Film } from '../../types/films-types';
+
 
 type Props = {
   filmTitle: string;
@@ -41,9 +43,14 @@ function App({ filmTitle, filmGenre, releaseDate, films, reviews }: Props): JSX.
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film} element={<FilmScreen films={films} />} />
+        <Route path={AppRoute.Film} element={<FilmScreen films={films} reviews={reviews} />} >
+          <Route path={''} element={<Tabs tab={FilmTabs.Overview} films={films} reviews={reviews} />} />
+          <Route path={'/films/:id/Details'} element={<Tabs tab={FilmTabs.Details} films={films} reviews={reviews} />} />
+          <Route path={'/films/:id/Reviews'} element={<Tabs tab={FilmTabs.Reviews} films={films} reviews={reviews} />} />
+        </Route>
+
         <Route path={AppRoute.AddReview} element={<AddReviewScreen films={films} />} />
-        <Route path={AppRoute.Player} element={<PlayerScreen films={films}/>} />
+        <Route path={AppRoute.Player} element={<PlayerScreen films={films} />} />
         <Route
           path='*'
           element={<NotFoundScreen />}

@@ -51,3 +51,11 @@ export const RatingLevels: RatingLevelsType = [
 export const RATING_MAX_VALUE = 10;
 
 export const AUTOPLAY_TIMEOUT = 1000;
+
+export const MINUTES_PER_HOUR = 60;
+
+export const FilmTabs = {
+  Overview: 'Overview',
+  Details: 'Details',
+  Reviews: 'Reviews'
+};

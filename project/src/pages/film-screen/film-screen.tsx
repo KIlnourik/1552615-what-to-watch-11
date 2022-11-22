@@ -4,12 +4,14 @@ import FilmCardFull from '../../components/film-card-full/film-card-full';
 import { Film } from '../../types/films-types';
 import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { Review } from '../../types/reviews-types';
 
 type Props = {
   films: Film[];
+  reviews: Review[];
 };
 
-function FilmScreen({ films }: Props): JSX.Element {
+function FilmScreen({ films, reviews }: Props): JSX.Element {
 
   const { id } = useParams();
 
@@ -20,7 +22,7 @@ function FilmScreen({ films }: Props): JSX.Element {
   }
   return (
     <>
-      <FilmCardFull film={activeFilm} />
+      <FilmCardFull film={activeFilm} reviews={reviews}/>
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>

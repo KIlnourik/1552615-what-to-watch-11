@@ -1,4 +1,4 @@
-import { RatingLevels } from '../const';
+import { RatingLevels, MINUTES_PER_HOUR } from '../const';
 
 
 export function getRatingLevel(rating: number): string {
@@ -17,4 +17,12 @@ export function getRatingValues(maxRating: number): number[] {
     ratingArray.push(i);
   }
   return ratingArray;
+}
+
+export function getTimeUserView(runTime: number): string {
+  if (runTime % MINUTES_PER_HOUR < 1) {
+    return `${runTime}m`;
+  } else {
+    return `${Math.floor(runTime / MINUTES_PER_HOUR)}h ${runTime % MINUTES_PER_HOUR}m`;
+  }
 }
