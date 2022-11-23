@@ -20,16 +20,22 @@ function FilmScreen({ films, reviews }: Props): JSX.Element {
   if (!activeFilm) {
     return <NotFoundScreen />;
   }
+
+  const similarFilms: Film[] | undefined = films.filter((film) => {
+    if (film.id !== activeFilm.id && film.genre === activeFilm.genre) {
+      return film;
+    }
+    return undefined;
+  }).slice(0, 3);
+
   return (
     <>
-      <FilmCardFull film={activeFilm} reviews={reviews}/>
+      <FilmCardFull film={activeFilm} reviews={reviews} />
       <div className="page-content">
+
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-
-          <div className="catalog__films-list">
-            <FilmCardsList films={films} />
-          </div>
+          <FilmCardsList films={similarFilms} />
         </section>
 
         <footer className="page-footer">
