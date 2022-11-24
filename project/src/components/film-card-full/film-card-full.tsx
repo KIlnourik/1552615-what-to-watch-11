@@ -1,17 +1,17 @@
 import { Film } from '../../types/films-types';
-import { getRatingLevel } from '../../utils/utils';
+import { Review } from '../../types/reviews-types';
 import Logo from '../logo/logo';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 type Props = {
   film: Film;
+  reviews: Review[];
 }
 
-function FilmCardFull({ film }: Props) {
-  const { id, name, posterImage, backgroundImage, description, rating, scoresCount, director, starring, genre, released
-  } = film;
-  const filmRatingLevel = getRatingLevel(rating);
+function FilmCardFull({ film, reviews }: Props) {
+  const { id, name, posterImage, backgroundImage, genre, released } = film;
+
   return (
     <section className="film-card film-card--full">
       <div className="film-card__hero">
@@ -69,40 +69,10 @@ function FilmCardFull({ film }: Props) {
       <div className="film-card__wrap film-card__translate-top">
         <div className="film-card__info">
           <div className="film-card__poster film-card__poster--big">
-            <img src={posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
+            <img src={posterImage} alt="{name}" width="218" height="327" />
           </div>
 
-          <div className="film-card__desc">
-            <nav className="film-nav film-card__nav">
-              <ul className="film-nav__list">
-                <li className="film-nav__item film-nav__item--active">
-                  <a href="#todo" className="film-nav__link">Overview</a>
-                </li>
-                <li className="film-nav__item">
-                  <a href="#todo" className="film-nav__link">Details</a>
-                </li>
-                <li className="film-nav__item">
-                  <a href="#todo" className="film-nav__link">Reviews</a>
-                </li>
-              </ul>
-            </nav>
-
-            <div className="film-rating">
-              <div className="film-rating__score">{rating}</div>
-              <p className="film-rating__meta">
-                <span className="film-rating__level">{filmRatingLevel}</span>
-                <span className="film-rating__count">{scoresCount} ratings</span>
-              </p>
-            </div>
-
-            <div className="film-card__text">
-              <p>{description}</p>
-
-              <p className="film-card__director"><strong>Director: {director}</strong></p>
-
-              <p className="film-card__starring"><strong>Starring: {starring.join(', ')}</strong></p>
-            </div>
-          </div>
+          <Outlet />
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Film } from '../../types/films-types';
+import { AUTOPLAY_TIMEOUT} from '../../const';
 
 type Props = {
   film: Film;
@@ -24,7 +25,7 @@ function VideoPlayer({ film, autoPlay }: Props): JSX.Element {
     if (autoPlay) {
       setTimeout(() => {
         videoRef.current?.play();
-      }, 1000);
+      }, AUTOPLAY_TIMEOUT);
       return;
     }
     videoRef.current?.pause();
