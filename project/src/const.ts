@@ -59,3 +59,5 @@ export const FilmTabs = {
   Details: 'Details',
   Reviews: 'Reviews'
 };
+
+export const ALL_GENRES = 'All genres';

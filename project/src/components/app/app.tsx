@@ -27,7 +27,7 @@ function App({ filmTitle, filmGenre, releaseDate, films, reviews }: Props): JSX.
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<MainScreen filmTitle={filmTitle} filmGenre={filmGenre} releaseDate={releaseDate} films={films} />}
+          element={<MainScreen filmTitle={filmTitle} filmGenre={filmGenre} releaseDate={releaseDate} />}
         />
         <Route
           path={AppRoute.SignIn}
