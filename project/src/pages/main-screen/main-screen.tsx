@@ -4,15 +4,16 @@ import Logo from '../../components/logo/logo';
 import { AppRoute } from '../../const';
 import GenresList from '../../components/genres-list/genres-list';
 import { useAppSelector } from '../../hooks/index';
-import {films} from '../../mocks/films';
+import { Film } from '../../types/films-types';
 
 type Props = {
   filmTitle: string;
   filmGenre: string;
   releaseDate: number;
+  films: Film[];
 };
 
-function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
+function MainScreen({ filmTitle, filmGenre, releaseDate, films }: Props): JSX.Element {
   const filteredFilms = useAppSelector((state) => state.films);
 
   return (
