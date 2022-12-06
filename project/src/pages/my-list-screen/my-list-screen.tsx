@@ -31,7 +31,7 @@ function MyListScreen({ films }: Props): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          <FilmCardsList films={films} />
+          <FilmCardsList films={films}/>
         </div>
       </section>
 

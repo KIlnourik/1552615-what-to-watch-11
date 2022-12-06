@@ -4,16 +4,16 @@ import FilmCardFull from '../../components/film-card-full/film-card-full';
 import { Film } from '../../types/films-types';
 import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { Review } from '../../types/reviews-types';
+import { useAppSelector } from '../../hooks';
 
 type Props = {
   films: Film[];
-  reviews: Review[];
-};
+}
 
-function FilmScreen({ films, reviews }: Props): JSX.Element {
+function FilmScreen({films}: Props): JSX.Element {
 
   const { id } = useParams();
+  const reviews = useAppSelector((state) => state.mockReviews);
 
   const activeFilm = films.find((film) => film.id.toString() === id);
 

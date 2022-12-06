@@ -1,5 +1,5 @@
-import { RatingLevels, MINUTES_PER_HOUR } from '../const';
-
+import { RatingLevels, MINUTES_PER_HOUR, MAX_FILMS_COUNT } from '../const';
+import { Film } from '../types/films-types';
 
 export function getRatingLevel(rating: number): string {
   let filmRatingLevel = '';
@@ -25,4 +25,11 @@ export function getTimeUserView(runTime: number): string {
   } else {
     return `${Math.floor(runTime / MINUTES_PER_HOUR)}h ${runTime % MINUTES_PER_HOUR}m`;
   }
+}
+
+export function checkFilmsListCount(films: Film[]): boolean {
+  if (films.length < MAX_FILMS_COUNT) {
+    return true;
+  }
+  return false;
 }

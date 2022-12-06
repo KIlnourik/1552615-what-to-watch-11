@@ -1,21 +1,20 @@
 import { Link } from 'react-router-dom';
 import FilmCardsList from '../../components/film-cards-list/film-cards-list';
 import Logo from '../../components/logo/logo';
-import { AppRoute } from '../../const';
+import { AppRoute, MAX_FILMS_COUNT } from '../../const';
 import GenresList from '../../components/genres-list/genres-list';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useAppSelector } from '../../hooks/index';
-import { Film } from '../../types/films-types';
 
 type Props = {
   filmTitle: string;
   filmGenre: string;
   releaseDate: number;
-  films: Film[];
 };
 
-function MainScreen({ filmTitle, filmGenre, releaseDate, films }: Props): JSX.Element {
+function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
   const filteredFilms = useAppSelector((state) => state.films);
-
+  const isShowMoreButtonActive = filteredFilms.length > MAX_FILMS_COUNT;
   return (
     <>
       <section className="film-card">
@@ -78,12 +77,10 @@ function MainScreen({ filmTitle, filmGenre, releaseDate, films }: Props): JSX.El
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList films={films} />
+          <GenresList />
 
-          <FilmCardsList films={filteredFilms} />
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <FilmCardsList films={filteredFilms}/>
+          {isShowMoreButtonActive && <ShowMoreButton/>}
         </section>
         <footer className="page-footer">
           <div className="logo">
