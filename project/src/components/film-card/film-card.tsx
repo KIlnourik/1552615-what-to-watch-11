@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { resetFilmsListCount } from '../../store/action';
 import { Film } from '../../types/films-types';
 import VideoPlayer from '../video-player/video-player';
 
@@ -9,6 +11,10 @@ type Props = {
 
 function FilmCard({ film, isActive }: Props): JSX.Element {
   const { id, name, previewImage } = film;
+  const dispatch = useAppDispatch();
+  const handleLinkClick = () => {
+    dispatch(resetFilmsListCount());
+  };
   return (
     <article className="small-film-card catalog__films-card" id={id.toString()}>
       <div className="small-film-card__image" id={id.toString()}>
@@ -17,7 +23,7 @@ function FilmCard({ film, isActive }: Props): JSX.Element {
           : <img src={previewImage} alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />}
       </div>
       <h3 className="small-film-card__title" id={id.toString()}>
-        <Link to={`films/${id}`} className="small-film-card__link" id={id.toString()}>{name} </Link>
+        <Link to={`films/${id}`} className="small-film-card__link" id={id.toString()} onClick={handleLinkClick}>{name} </Link>
       </h3>
     </article>
   );

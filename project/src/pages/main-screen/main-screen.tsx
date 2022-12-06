@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import FilmCardsList from '../../components/film-cards-list/film-cards-list';
 import Logo from '../../components/logo/logo';
-import { AppRoute } from '../../const';
+import { AppRoute, MAX_FILMS_COUNT } from '../../const';
 import GenresList from '../../components/genres-list/genres-list';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useAppSelector } from '../../hooks/index';
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
 
 function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
   const filteredFilms = useAppSelector((state) => state.films);
-
+  const isShowMoreButtonActive = filteredFilms.length > MAX_FILMS_COUNT;
   return (
     <>
       <section className="film-card">
@@ -78,8 +79,8 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
 
           <GenresList />
 
-          <FilmCardsList films={filteredFilms} />
-
+          <FilmCardsList films={filteredFilms}/>
+          {isShowMoreButtonActive && <ShowMoreButton/>}
         </section>
         <footer className="page-footer">
           <div className="logo">
