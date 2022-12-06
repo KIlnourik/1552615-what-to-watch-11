@@ -9,19 +9,18 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import Tabs from '../tabs/tabs';
-import { Review } from '../../types/reviews-types';
-import { Film } from '../../types/films-types';
+import { useAppSelector } from '../../hooks';
 
 
 type Props = {
   filmTitle: string;
   filmGenre: string;
   releaseDate: number;
-  films: Film[];
-  reviews: Review[];
 };
 
-function App({ filmTitle, filmGenre, releaseDate, films, reviews }: Props): JSX.Element {
+function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
+  const films = useAppSelector((state) => state.originalFilms);
+  const reviews = useAppSelector((state) => state.mockReviews);
   return (
     <BrowserRouter>
       <Routes>
