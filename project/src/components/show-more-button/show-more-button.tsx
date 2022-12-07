@@ -1,14 +1,9 @@
-import { useAppDispatch} from '../../hooks/index';
-import { showMoreFilms } from '../../store/action';
 
+type Props = {
+  handleShowMoreButtonClick: () => void;
+}
 
-function ShowMoreButton():JSX.Element {
-
-  const dispatch = useAppDispatch();
-
-  const handleShowMoreButtonClick = () => {
-    dispatch(showMoreFilms());
-  };
+function ShowMoreButton({handleShowMoreButtonClick}: Props):JSX.Element {
 
   return (
     <div className="catalog__more">

@@ -5,6 +5,7 @@ import { AppRoute, MAX_FILMS_COUNT } from '../../const';
 import GenresList from '../../components/genres-list/genres-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useAppSelector } from '../../hooks/index';
+import { useState } from 'react';
 
 type Props = {
   filmTitle: string;
@@ -13,8 +14,16 @@ type Props = {
 };
 
 function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
-  const filteredFilms = useAppSelector((state) => state.films);
-  const isShowMoreButtonActive = filteredFilms.length > MAX_FILMS_COUNT;
+  const [filmsListCount, setFilmsListCount] = useState(MAX_FILMS_COUNT);
+
+  const films = useAppSelector((state) => state.films);
+  const isShowMoreButtonActive = films.length > MAX_FILMS_COUNT;
+  const slicedFilms = films.slice(0, filmsListCount);
+
+  const handleShowMoreButtonClick = () => {
+    setFilmsListCount(filmsListCount + MAX_FILMS_COUNT);
+  };
+
   return (
     <>
       <section className="film-card">
@@ -79,8 +88,8 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
 
           <GenresList />
 
-          <FilmCardsList films={filteredFilms}/>
-          {isShowMoreButtonActive && <ShowMoreButton/>}
+          <FilmCardsList films={slicedFilms}/>
+          {isShowMoreButtonActive && <ShowMoreButton handleShowMoreButtonClick={handleShowMoreButtonClick}/>}
         </section>
         <footer className="page-footer">
           <div className="logo">
