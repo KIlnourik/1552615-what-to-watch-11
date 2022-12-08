@@ -10,6 +10,7 @@ import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import Tabs from '../tabs/tabs';
 import { useAppSelector } from '../../hooks';
+import Spinner from '../spinner/spinner';
 
 
 type Props = {
@@ -19,8 +20,15 @@ type Props = {
 };
 
 function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
-  const films = useAppSelector((state) => state.originalFilms);
+  const films = useAppSelector((state) => state.films);
   const reviews = useAppSelector((state) => state.mockReviews);
+  const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
+  if (isFilmsLoading) {
+    return (
+      <Spinner/>
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>

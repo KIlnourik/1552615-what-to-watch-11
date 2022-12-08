@@ -1,18 +1,30 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, filterFilmsByGenre } from './action';
-import { films } from '../mocks/films';
-import { ALL_GENRES } from '../const';
-import { reviews } from '../mocks/reviews';
+import { changeGenre, filterFilmsByGenre, loadFilms, requireAuthorization, setFilmsLoadingStatus, setError } from './action';
+import { ALL_GENRES, AuthorizationStatus } from '../const';
+import { Film } from '../types/films-types';
+import { Review } from '../types/reviews-types';
+import {reviews } from '../mocks/reviews';
 
-const originalFilms = films;
+type InitalState = {
+  genre: string;
+  films: Film[];
+  originalFilms: Film[];
+  mockReviews: Review[];
+  authorizationStatus: AuthorizationStatus;
+  isFilmsLoading: boolean;
+  error: string | null;
+}
 
 const mockReviews = reviews;
 
-const initialState = {
+const initialState: InitalState = {
   genre: ALL_GENRES,
-  films: [...films],
-  originalFilms,
-  mockReviews,
+  films: [],
+  originalFilms: [],
+  mockReviews: mockReviews,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  isFilmsLoading: false,
+  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -22,7 +34,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(filterFilmsByGenre, (state) => {
       if (state.genre === ALL_GENRES) {
-        state.films = [...films];
+        state.films = [...state.originalFilms];
       } else {
         state.films = state.originalFilms.filter(
           (activeFilm) => (
@@ -30,6 +42,18 @@ const reducer = createReducer(initialState, (builder) => {
           )
         );
       }
+    })
+    .addCase(loadFilms, (state, action) => {
+      state.films = action.payload;
+    })
+    .addCase(setFilmsLoadingStatus, (state, action) => {
+      state.isFilmsLoading = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
 

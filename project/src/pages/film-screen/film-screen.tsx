@@ -13,10 +13,10 @@ type Props = {
 function FilmScreen({films}: Props): JSX.Element {
 
   const { id } = useParams();
+
   const reviews = useAppSelector((state) => state.mockReviews);
 
   const activeFilm = films.find((film) => film.id.toString() === id);
-
   if (!activeFilm) {
     return <NotFoundScreen />;
   }

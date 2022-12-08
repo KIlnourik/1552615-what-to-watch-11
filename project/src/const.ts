@@ -63,3 +63,15 @@ export const FilmTabs = {
 export const ALL_GENRES = 'All genres';
 
 export const MAX_FILMS_COUNT = 8;
+
+export const BACKEND_URL = 'https://11.react.pages.academy/wtw';
+
+export const REQUEST_TIMEOUT = 5000;
+
+export enum APIRoute {
+  Films = '/films',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export const TIMEOUT_SHOW_ERROR = 5000;
