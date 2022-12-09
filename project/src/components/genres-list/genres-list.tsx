@@ -16,7 +16,7 @@ const getUniqueGenreList = (filmList: Film[]) => {
 };
 
 function GenresList(): JSX.Element {
-  const films = useAppSelector((state) => state.originalFilms);
+  const films = useAppSelector((state) => state.films);
 
   const uniqueGenreList = getUniqueGenreList(films);
   const activeGenre = useAppSelector((state) => state.genre);

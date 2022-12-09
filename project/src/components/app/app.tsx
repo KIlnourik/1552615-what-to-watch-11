@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, FilmTabs } from '../../const';
+import { AppRoute, FilmTabs } from '../../const';
 import MainScreen from '../../pages/main-screen/main-screen';
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import FilmScreen from '../../pages/film-screen/film-screen';
@@ -25,7 +25,7 @@ function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
   const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
   if (isFilmsLoading) {
     return (
-      <Spinner/>
+      <Spinner />
     );
   }
 
@@ -43,9 +43,7 @@ function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
         <Route
           path={AppRoute.MyList}
           element={
-            <PrivateRoute
-              authStatus={AuthorizationStatus.NoAuth}
-            >
+            <PrivateRoute>
               <MyListScreen films={films} />
             </PrivateRoute>
           }

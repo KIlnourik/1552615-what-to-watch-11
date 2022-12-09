@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import FilmCardsList from '../../components/film-cards-list/film-cards-list';
 import Logo from '../../components/logo/logo';
-import { AppRoute, MAX_FILMS_COUNT } from '../../const';
+import { AppRoute, AuthorizationStatus, MAX_FILMS_COUNT } from '../../const';
 import GenresList from '../../components/genres-list/genres-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useAppSelector } from '../../hooks/index';
 import { useState } from 'react';
+import LoginUserBlock from '../../components/login-user-block/login-user-block';
+import GuestBlock from '../../components/guest-block/guest-block';
 
 type Props = {
   filmTitle: string;
@@ -19,6 +21,7 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
   const films = useAppSelector((state) => state.films);
   const isShowMoreButtonActive = films.length > MAX_FILMS_COUNT;
   const slicedFilms = films.slice(0, filmsListCount);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
 
   const handleShowMoreButtonClick = () => {
     setFilmsListCount(filmsListCount + MAX_FILMS_COUNT);
@@ -38,16 +41,7 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
             <Logo />
           </div>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a href="#todo" className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          {authStatus === AuthorizationStatus.Auth ? <LoginUserBlock /> : <GuestBlock />}
         </header>
 
         <div className="film-card__wrap">
@@ -88,8 +82,8 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
 
           <GenresList />
 
-          <FilmCardsList films={slicedFilms}/>
-          {isShowMoreButtonActive && <ShowMoreButton handleShowMoreButtonClick={handleShowMoreButtonClick}/>}
+          <FilmCardsList films={slicedFilms} />
+          {isShowMoreButtonActive && <ShowMoreButton handleShowMoreButtonClick={handleShowMoreButtonClick} />}
         </section>
         <footer className="page-footer">
           <div className="logo">
