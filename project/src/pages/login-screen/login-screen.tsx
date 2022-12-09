@@ -24,8 +24,6 @@ function LoginScreen(): JSX.Element {
         email: emailRef.current?.value,
         password: passwordRef.current?.value,
       });
-      console.log(emailRef);
-      console.log(passwordRef);
     }
   };
 
