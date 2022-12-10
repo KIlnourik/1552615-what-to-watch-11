@@ -11,10 +11,10 @@ type Props = {
 }
 
 function FilmCardFull({ film, reviews }: Props) {
-  const { id, name, posterImage, backgroundImage, genre, released } = film;
+  const { id, name, posterImage, backgroundImage, backgroundColor, genre, released } = film;
 
   return (
-    <section className="film-card film-card--full">
+    <section className="film-card film-card--full" style={{backgroundColor: backgroundColor}}>
       <div className="film-card__hero">
         <div className="film-card__bg">
           <img src={backgroundImage} alt={name} />

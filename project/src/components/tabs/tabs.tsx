@@ -46,7 +46,7 @@ function Tabs({ tab, films, reviews }: Props): JSX.Element {
         </ul>
       </nav>
 
-      {renderTabs(tab, activeFilm, reviews)};
+      {renderTabs(tab, activeFilm, reviews)}
     </div>
   );
 }
