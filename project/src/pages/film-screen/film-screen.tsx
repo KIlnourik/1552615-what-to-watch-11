@@ -2,31 +2,45 @@ import Logo from '../../components/logo/logo';
 import FilmCardsList from '../../components/film-cards-list/film-cards-list';
 import FilmCardFull from '../../components/film-card-full/film-card-full';
 import { Film } from '../../types/films-types';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { fetchReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
+import Spinner from '../../components/spinner/spinner';
 
 type Props = {
   films: Film[];
 }
 
-function FilmScreen({films}: Props): JSX.Element {
+function FilmScreen({ films }: Props): JSX.Element {
 
   const { id } = useParams();
-  const reviews = useAppSelector((state) => state.mockReviews);
 
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const activeFilm = films.find((film) => film.id.toString() === id);
+
+  useEffect(() => {
+    if (!activeFilm) {
+      navigate('/*');
+    } else {
+      dispatch(fetchReviewsAction(activeFilm.id.toString()));
+      dispatch(fetchSimilarFilmsAction(activeFilm.id.toString()));
+    }
+  }, [activeFilm, dispatch, navigate]);
+
+  const reviews = useAppSelector((state) => state.reviews);
+  const similarFilms = useAppSelector((state) => state.similarFilms).slice(0, 3);
+  const isReviewsLoading = useAppSelector((state) => state.isReviewsLoading);
+  const isSimilarFilmsLoading = useAppSelector((state) => state.isSimilarFilmsLoading);
+  if (isReviewsLoading || isSimilarFilmsLoading) {
+    return <Spinner />;
+  }
 
   if (!activeFilm) {
     return <NotFoundScreen />;
   }
-
-  const similarFilms: Film[] | undefined = films.filter((film) => {
-    if (film.id !== activeFilm.id && film.genre === activeFilm.genre) {
-      return film;
-    }
-    return undefined;
-  }).slice(0, 3);
 
   return (
     <>

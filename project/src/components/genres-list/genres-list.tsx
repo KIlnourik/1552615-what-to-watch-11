@@ -3,6 +3,7 @@ import { Film } from '../../types/films-types';
 import { ALL_GENRES } from '../../const';
 import { changeGenre, filterFilmsByGenre } from '../../store/action';
 import { Link } from 'react-router-dom';
+import { MAX_GENRES_COUNT } from '../../const';
 
 const getUniqueGenreList = (filmList: Film[]) => {
   const resultList: string[] = [];
@@ -12,11 +13,11 @@ const getUniqueGenreList = (filmList: Film[]) => {
       resultList.push(film.genre);
     }
   });
-  return resultList;
+  return resultList.slice(0, MAX_GENRES_COUNT);
 };
 
 function GenresList(): JSX.Element {
-  const films = useAppSelector((state) => state.originalFilms);
+  const films = useAppSelector((state) => state.films);
 
   const uniqueGenreList = getUniqueGenreList(films);
   const activeGenre = useAppSelector((state) => state.genre);

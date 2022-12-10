@@ -62,4 +62,19 @@ export const FilmTabs = {
 
 export const ALL_GENRES = 'All genres';
 
+export const MAX_GENRES_COUNT = 10;
+
 export const MAX_FILMS_COUNT = 8;
+
+export const AUTH_TOKEN_KEY_NAME = 'what-to-watch-token';
+
+export const BACKEND_URL = 'https://11.react.pages.academy/wtw';
+
+export const REQUEST_TIMEOUT = 5000;
+
+export enum APIRoute {
+  Films = '/films',
+  Login = '/login',
+  Logout = '/logout',
+  Reviews = '/comments/',
+}

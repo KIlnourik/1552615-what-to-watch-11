@@ -1,5 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, FilmTabs } from '../../const';
+import { Routes, Route } from 'react-router-dom';
+import { AppRoute, FilmTabs } from '../../const';
 import MainScreen from '../../pages/main-screen/main-screen';
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import FilmScreen from '../../pages/film-screen/film-screen';
@@ -10,6 +10,9 @@ import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import Tabs from '../tabs/tabs';
 import { useAppSelector } from '../../hooks';
+import Spinner from '../spinner/spinner';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 
 type Props = {
@@ -19,10 +22,18 @@ type Props = {
 };
 
 function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
-  const films = useAppSelector((state) => state.originalFilms);
-  const reviews = useAppSelector((state) => state.mockReviews);
+  const films = useAppSelector((state) => state.films);
+  const reviews = useAppSelector((state) => state.reviews);
+  const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
+
+  if (isFilmsLoading) {
+    return (
+      <Spinner />
+    );
+  }
+
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Root}
@@ -35,9 +46,7 @@ function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
         <Route
           path={AppRoute.MyList}
           element={
-            <PrivateRoute
-              authStatus={AuthorizationStatus.NoAuth}
-            >
+            <PrivateRoute>
               <MyListScreen films={films} />
             </PrivateRoute>
           }
@@ -55,7 +64,7 @@ function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
           element={<NotFoundScreen />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

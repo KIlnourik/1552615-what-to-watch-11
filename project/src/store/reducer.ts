@@ -1,19 +1,42 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, filterFilmsByGenre, resetFilmsListCount, showMoreFilms } from './action';
-import { films } from '../mocks/films';
-import { ALL_GENRES, MAX_FILMS_COUNT } from '../const';
-import { reviews } from '../mocks/reviews';
+import { changeGenre, filterFilmsByGenre, loadFilms, loadSimilarFilms, loadReviews, requireAuthorization, setFilmsLoadingStatus, setReviewsLoadingStatus, setSimilarFilmsLoadingStatus, uploadReview } from './action';
+import { ALL_GENRES, AuthorizationStatus } from '../const';
+import { Film } from '../types/films-types';
+import { Review } from '../types/reviews-types';
 
-const originalFilms = films;
+const emptyUserReview = {
+  comment: '',
+  date: '',
+  id: 0,
+  rating: 0,
+  user: {
+    id: 0,
+    name: '',
+  }
+};
 
-const mockReviews = reviews;
+type InitialState = {
+  genre: string;
+  films: Film[];
+  similarFilms: Film[];
+  reviews: Review[];
+  authorizationStatus: AuthorizationStatus;
+  isFilmsLoading: boolean;
+  isReviewsLoading: boolean;
+  isSimilarFilmsLoading: boolean;
+  userReview: Review;
+}
 
-const initialState = {
+const initialState: InitialState = {
   genre: ALL_GENRES,
-  films: [...films],
-  originalFilms,
-  mockReviews,
-  filmsListCount: MAX_FILMS_COUNT
+  films: [],
+  similarFilms: [],
+  reviews: [],
+  authorizationStatus: AuthorizationStatus.Unknown,
+  isFilmsLoading: false,
+  isReviewsLoading: false,
+  isSimilarFilmsLoading: false,
+  userReview: emptyUserReview,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -23,21 +46,38 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(filterFilmsByGenre, (state) => {
       if (state.genre === ALL_GENRES) {
-        state.films = [...films];
-        state.filmsListCount = MAX_FILMS_COUNT;
+        state.films = [...state.films];
       } else {
-        state.films = state.originalFilms.filter(
+        state.films = state.films.filter(
           (activeFilm) => (
             activeFilm.genre === state.genre
           )
         );
       }
     })
-    .addCase(showMoreFilms, (state) => {
-      state.filmsListCount += MAX_FILMS_COUNT;
+    .addCase(loadFilms, (state, action) => {
+      state.films = action.payload;
     })
-    .addCase(resetFilmsListCount, (state) => {
-      state.filmsListCount = MAX_FILMS_COUNT;
+    .addCase(loadReviews, (state, action) => {
+      state.reviews = action.payload;
+    })
+    .addCase(loadSimilarFilms, (state, action) => {
+      state.similarFilms = action.payload;
+    })
+    .addCase(setFilmsLoadingStatus, (state, action) => {
+      state.isFilmsLoading = action.payload;
+    })
+    .addCase(setReviewsLoadingStatus, (state, action) => {
+      state.isReviewsLoading = action.payload;
+    })
+    .addCase(setSimilarFilmsLoadingStatus, (state, action) => {
+      state.isSimilarFilmsLoading = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(uploadReview, (state, action) => {
+      state.userReview = action.payload;
     });
 });
 
