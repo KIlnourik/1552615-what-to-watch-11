@@ -4,8 +4,9 @@ import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { store } from './store/index';
 import { fetchFilmsAction, checkAuthAction } from './store/api-actions';
-import ErrorMessage from './components/error-message/error-message';
 import { getToken } from './services/token';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Settings = {
   FilmTitle: 'The Grand Budapest Hotel',
@@ -26,7 +27,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ErrorMessage />
+      <ToastContainer />
       <App
         filmTitle={Settings.FilmTitle}
         filmGenre={Settings.FilmGenre}
