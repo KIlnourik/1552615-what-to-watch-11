@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { fetchReviewsAction } from '../../store/api-actions';
+import { fetchReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
 
 type Props = {
@@ -24,26 +24,21 @@ function FilmScreen({ films }: Props): JSX.Element {
   useEffect(() => {
     if (id) {
       dispatch(fetchReviewsAction(id));
+      dispatch(fetchSimilarFilmsAction(id));
     }
   }, [id, dispatch]);
 
   const reviews = useAppSelector((state) => state.reviews);
+  const similarFilms = useAppSelector((state) => state.similarFilms).slice(0, 3);
   const isReviewsLoading = useAppSelector((state) => state.isReviewsLoading);
-
-  if (isReviewsLoading) {
+  const isSimilarFilmsLoading = useAppSelector((state) => state.isSimilarFilmsLoading);
+  if (isReviewsLoading || isSimilarFilmsLoading) {
     return <Spinner />;
   }
 
   if (!activeFilm) {
     return <NotFoundScreen />;
   }
-
-  const similarFilms: Film[] | undefined = films.filter((film) => {
-    if (film.id !== activeFilm.id && film.genre === activeFilm.genre) {
-      return film;
-    }
-    return undefined;
-  }).slice(0, 3);
 
   return (
     <>

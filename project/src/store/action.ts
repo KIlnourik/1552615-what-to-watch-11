@@ -13,10 +13,14 @@ export const loadFilms = createAction<Film[]>('films/loadFilms');
 
 export const loadReviews = createAction<Review[]>('films/loadReviews');
 
+export const loadSimilarFilms = createAction<Film[]>('films/loadSimilarFilms');
+
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
 export const setFilmsLoadingStatus = createAction<boolean>('films/setFilmsLoadingStatus');
 
 export const setReviewsLoadingStatus = createAction<boolean>('films/setReviewsLoadingStatus');
+
+export const setSimilarFilmsLoadingStatus = createAction<boolean>('films/setSimilarFilmsLoadingStatus');
 
 export const redirectToRoute = createAction<AppRoute>('films/redirectToRoute');

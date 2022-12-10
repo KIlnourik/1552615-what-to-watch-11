@@ -10,10 +10,8 @@ import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import Tabs from '../tabs/tabs';
 import { useAppSelector } from '../../hooks';
-import Spinner from '../spinner/spinner';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
-
 
 type Props = {
   filmTitle: string;
@@ -24,12 +22,6 @@ type Props = {
 function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
   const films = useAppSelector((state) => state.films);
   const reviews = useAppSelector((state) => state.reviews);
-  const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
-  if (isFilmsLoading) {
-    return (
-      <Spinner />
-    );
-  }
 
   return (
     <HistoryRouter history={browserHistory}>
