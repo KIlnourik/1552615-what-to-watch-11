@@ -2,7 +2,7 @@ import Logo from '../../components/logo/logo';
 import FilmCardsList from '../../components/film-cards-list/film-cards-list';
 import FilmCardFull from '../../components/film-card-full/film-card-full';
 import { Film } from '../../types/films-types';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
@@ -18,15 +18,17 @@ function FilmScreen({ films }: Props): JSX.Element {
   const { id } = useParams();
 
   const dispatch = useAppDispatch();
-
+  const navigate = useNavigate();
   const activeFilm = films.find((film) => film.id.toString() === id);
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchReviewsAction(id));
-      dispatch(fetchSimilarFilmsAction(id));
+    if (!activeFilm) {
+      navigate('/*');
+    } else {
+      dispatch(fetchReviewsAction(activeFilm.id.toString()));
+      dispatch(fetchSimilarFilmsAction(activeFilm.id.toString()));
     }
-  }, [id, dispatch]);
+  }, [activeFilm, dispatch, navigate]);
 
   const reviews = useAppSelector((state) => state.reviews);
   const similarFilms = useAppSelector((state) => state.similarFilms).slice(0, 3);

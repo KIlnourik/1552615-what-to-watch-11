@@ -7,7 +7,6 @@ import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useAppSelector } from '../../hooks/index';
 import { useState } from 'react';
 import LoginUserBlock from '../../components/login-user-block/login-user-block';
-import Spinner from '../../components/spinner/spinner';
 
 type Props = {
   filmTitle: string;
@@ -25,8 +24,6 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
   const handleShowMoreButtonClick = () => {
     setFilmsListCount(filmsListCount + MAX_FILMS_COUNT);
   };
-
-  const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
 
   return (
     <>
@@ -82,7 +79,7 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
 
           <GenresList />
 
-          {!isFilmsLoading ? <FilmCardsList films={slicedFilms} /> : <Spinner/>}
+          <FilmCardsList films={slicedFilms} />
           {isShowMoreButtonActive && <ShowMoreButton handleShowMoreButtonClick={handleShowMoreButtonClick} />}
         </section>
         <footer className="page-footer">
