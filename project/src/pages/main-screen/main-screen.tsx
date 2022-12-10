@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom';
 import FilmCardsList from '../../components/film-cards-list/film-cards-list';
 import Logo from '../../components/logo/logo';
-import { AppRoute, AuthorizationStatus, MAX_FILMS_COUNT } from '../../const';
+import { AppRoute, MAX_FILMS_COUNT } from '../../const';
 import GenresList from '../../components/genres-list/genres-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useAppSelector } from '../../hooks/index';
 import { useState } from 'react';
 import LoginUserBlock from '../../components/login-user-block/login-user-block';
-import GuestBlock from '../../components/guest-block/guest-block';
 
 type Props = {
   filmTitle: string;
@@ -21,7 +20,6 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
   const films = useAppSelector((state) => state.films);
   const isShowMoreButtonActive = films.length > MAX_FILMS_COUNT;
   const slicedFilms = films.slice(0, filmsListCount);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
 
   const handleShowMoreButtonClick = () => {
     setFilmsListCount(filmsListCount + MAX_FILMS_COUNT);
@@ -40,8 +38,7 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
           <div className="logo">
             <Logo />
           </div>
-
-          {authStatus === AuthorizationStatus.Auth ? <LoginUserBlock /> : <GuestBlock />}
+          <LoginUserBlock />
         </header>
 
         <div className="film-card__wrap">

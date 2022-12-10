@@ -5,7 +5,7 @@ import { Film } from '../types/films-types';
 import { Review } from '../types/reviews-types';
 import {reviews } from '../mocks/reviews';
 
-type InitalState = {
+type InitialState = {
   genre: string;
   films: Film[];
   originalFilms: Film[];
@@ -17,7 +17,7 @@ type InitalState = {
 
 const mockReviews = reviews;
 
-const initialState: InitalState = {
+const initialState: InitialState = {
   genre: ALL_GENRES,
   films: [],
   originalFilms: [],

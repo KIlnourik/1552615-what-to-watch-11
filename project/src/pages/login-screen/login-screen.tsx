@@ -27,6 +27,8 @@ function LoginScreen(): JSX.Element {
     }
   };
 
+  const handleSignOutClick = () => navigate(AppRoute.Root);
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -50,7 +52,7 @@ function LoginScreen(): JSX.Element {
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit" onClick={() => {navigate(AppRoute.Root);}}>Sign in</button>
+            <button className="sign-in__btn" type="submit" onClick={handleSignOutClick}>Sign in</button>
           </div>
         </form>
       </div>
