@@ -1,28 +1,27 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, filterFilmsByGenre, loadFilms, requireAuthorization, setFilmsLoadingStatus } from './action';
+import { changeGenre, filterFilmsByGenre, loadFilms, loadReviews, requireAuthorization, setFilmsLoadingStatus, setReviewsLoadingStatus } from './action';
 import { ALL_GENRES, AuthorizationStatus } from '../const';
 import { Film } from '../types/films-types';
 import { Review } from '../types/reviews-types';
-import {reviews } from '../mocks/reviews';
 
 type InitialState = {
   genre: string;
   films: Film[];
   originalFilms: Film[];
-  mockReviews: Review[];
+  reviews: Review[];
   authorizationStatus: AuthorizationStatus;
   isFilmsLoading: boolean;
+  isReviewsLoading: boolean;
 }
-
-const mockReviews = reviews;
 
 const initialState: InitialState = {
   genre: ALL_GENRES,
   films: [],
   originalFilms: [],
-  mockReviews: mockReviews,
+  reviews: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isFilmsLoading: false,
+  isReviewsLoading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -44,8 +43,14 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadFilms, (state, action) => {
       state.films = action.payload;
     })
+    .addCase(loadReviews, (state, action) => {
+      state.reviews = action.payload;
+    })
     .addCase(setFilmsLoadingStatus, (state, action) => {
       state.isFilmsLoading = action.payload;
+    })
+    .addCase(setReviewsLoadingStatus, (state, action) => {
+      state.isReviewsLoading = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;

@@ -1,8 +1,9 @@
 import { Film } from '../../types/films-types';
-import { Review } from '../../types/reviews-types';
 import Logo from '../logo/logo';
 import { Link, Outlet } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import LoginUserBlock from '../login-user-block/login-user-block';
+import { Review } from '../../types/reviews-types';
 
 type Props = {
   film: Film;
@@ -26,16 +27,7 @@ function FilmCardFull({ film, reviews }: Props) {
             <Logo />
           </div>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a href="#todo" className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          < LoginUserBlock />
         </header>
 
         <div className="film-card__wrap">

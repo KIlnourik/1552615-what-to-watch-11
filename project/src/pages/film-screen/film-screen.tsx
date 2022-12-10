@@ -4,19 +4,36 @@ import FilmCardFull from '../../components/film-card-full/film-card-full';
 import { Film } from '../../types/films-types';
 import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { fetchReviewsAction } from '../../store/api-actions';
+import Spinner from '../../components/spinner/spinner';
 
 type Props = {
   films: Film[];
 }
 
-function FilmScreen({films}: Props): JSX.Element {
+function FilmScreen({ films }: Props): JSX.Element {
 
   const { id } = useParams();
 
-  const reviews = useAppSelector((state) => state.mockReviews);
+  const dispatch = useAppDispatch();
 
   const activeFilm = films.find((film) => film.id.toString() === id);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchReviewsAction(id));
+    }
+  }, [id, dispatch]);
+
+  const reviews = useAppSelector((state) => state.reviews);
+  const isReviewsLoading = useAppSelector((state) => state.isReviewsLoading);
+
+  if (isReviewsLoading) {
+    return <Spinner />;
+  }
+
   if (!activeFilm) {
     return <NotFoundScreen />;
   }

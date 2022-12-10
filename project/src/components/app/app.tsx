@@ -23,7 +23,7 @@ type Props = {
 
 function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
   const films = useAppSelector((state) => state.films);
-  const reviews = useAppSelector((state) => state.mockReviews);
+  const reviews = useAppSelector((state) => state.reviews);
   const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
   if (isFilmsLoading) {
     return (
