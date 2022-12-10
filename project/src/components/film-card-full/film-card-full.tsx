@@ -1,9 +1,10 @@
 import { Film } from '../../types/films-types';
 import Logo from '../logo/logo';
 import { Link, Outlet } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import LoginUserBlock from '../login-user-block/login-user-block';
 import { Review } from '../../types/reviews-types';
+import { useAppSelector } from '../../hooks';
 
 type Props = {
   film: Film;
@@ -12,9 +13,10 @@ type Props = {
 
 function FilmCardFull({ film, reviews }: Props) {
   const { id, name, posterImage, backgroundImage, backgroundColor, genre, released } = film;
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
 
   return (
-    <section className="film-card film-card--full" style={{backgroundColor: backgroundColor}}>
+    <section className="film-card film-card--full" style={{ backgroundColor: backgroundColor }}>
       <div className="film-card__hero">
         <div className="film-card__bg">
           <img src={backgroundImage} alt={name} />
@@ -52,7 +54,7 @@ function FilmCardFull({ film, reviews }: Props) {
                 <span>My list</span>
                 <span className="film-card__count">9</span>
               </Link>
-              <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
+              <Link to={authStatus === AuthorizationStatus.Auth ? `/films/${id}/review` : `${AppRoute.SignIn}`} className="btn film-card__button">Add review</Link>
             </div>
           </div>
         </div>

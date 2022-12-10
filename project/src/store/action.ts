@@ -23,4 +23,6 @@ export const setReviewsLoadingStatus = createAction<boolean>('films/setReviewsLo
 
 export const setSimilarFilmsLoadingStatus = createAction<boolean>('films/setSimilarFilmsLoadingStatus');
 
+export const uploadReview = createAction<Review>('films/uploadReview');
+
 export const redirectToRoute = createAction<AppRoute>('films/redirectToRoute');

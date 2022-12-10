@@ -1,8 +1,19 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, filterFilmsByGenre, loadFilms, loadSimilarFilms, loadReviews, requireAuthorization, setFilmsLoadingStatus, setReviewsLoadingStatus, setSimilarFilmsLoadingStatus } from './action';
+import { changeGenre, filterFilmsByGenre, loadFilms, loadSimilarFilms, loadReviews, requireAuthorization, setFilmsLoadingStatus, setReviewsLoadingStatus, setSimilarFilmsLoadingStatus, uploadReview } from './action';
 import { ALL_GENRES, AuthorizationStatus } from '../const';
 import { Film } from '../types/films-types';
 import { Review } from '../types/reviews-types';
+
+const emptyUserReview = {
+  comment: '',
+  date: '',
+  id: 0,
+  rating: 0,
+  user: {
+    id: 0,
+    name: '',
+  }
+};
 
 type InitialState = {
   genre: string;
@@ -13,6 +24,7 @@ type InitialState = {
   isFilmsLoading: boolean;
   isReviewsLoading: boolean;
   isSimilarFilmsLoading: boolean;
+  userReview: Review;
 }
 
 const initialState: InitialState = {
@@ -24,6 +36,7 @@ const initialState: InitialState = {
   isFilmsLoading: false,
   isReviewsLoading: false,
   isSimilarFilmsLoading: false,
+  userReview: emptyUserReview,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -62,6 +75,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(uploadReview, (state, action) => {
+      state.userReview = action.payload;
     });
 });
 
