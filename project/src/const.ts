@@ -79,3 +79,34 @@ export enum APIRoute {
   Reviews = '/comments/',
   Promo = '/promo',
 }
+
+export const EmptyUserReview = {
+  comment: '',
+  date: '',
+  id: 0,
+  rating: 0,
+  user: {
+    id: 0,
+    name: '',
+  }
+};
+
+export const EmptyPromoFilm = {
+  id: 0,
+  name: '',
+  posterImage: '',
+  previewImage: '',
+  backgroundImage: '',
+  backgroundColor: '',
+  videoLink: '',
+  previewVideoLink: '',
+  description: '',
+  rating: 0,
+  scoresCount: 0,
+  director: '',
+  starring: [],
+  runTime: 0,
+  genre: '',
+  released: 0,
+  isFavorite: false,
+};

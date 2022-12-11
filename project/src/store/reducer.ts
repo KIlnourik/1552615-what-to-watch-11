@@ -1,43 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { changeGenre, filterFilmsByGenre, loadFilms, loadSimilarFilms, loadPromoFilm, loadReviews, requireAuthorization, setFilmsLoadingStatus, setReviewsLoadingStatus, setSimilarFilmsLoadingStatus, setPromoFilmLoadingStatus, uploadReview } from './action';
-import { ALL_GENRES, AuthorizationStatus } from '../const';
+import { ALL_GENRES, AuthorizationStatus, EmptyPromoFilm, EmptyUserReview } from '../const';
 import { Film } from '../types/films-types';
 import { Review } from '../types/reviews-types';
-
-const emptyUserReview = {
-  comment: '',
-  date: '',
-  id: 0,
-  rating: 0,
-  user: {
-    id: 0,
-    name: '',
-  }
-};
-
-const emptyPromoFilm = {
-  id: 0,
-  name: '',
-  posterImage: '',
-  previewImage: '',
-  backgroundImage: '',
-  backgroundColor: '',
-  videoLink: '',
-  previewVideoLink: '',
-  description: '',
-  rating: 0,
-  scoresCount: 0,
-  director: '',
-  starring: [],
-  runTime: 0,
-  genre: '',
-  released: 0,
-  isFavorite: false,
-};
 
 type InitialState = {
   genre: string;
   films: Film[];
+  filteredFilms: Film[];
   similarFilms: Film[];
   reviews: Review[];
   authorizationStatus: AuthorizationStatus;
@@ -52,35 +22,37 @@ type InitialState = {
 const initialState: InitialState = {
   genre: ALL_GENRES,
   films: [],
+  filteredFilms: [],
   similarFilms: [],
   reviews: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isFilmsLoading: false,
   isReviewsLoading: false,
   isSimilarFilmsLoading: false,
-  userReview: emptyUserReview,
-  promoFilm: emptyPromoFilm,
+  userReview: EmptyUserReview,
+  promoFilm: EmptyPromoFilm,
   isPromoFilmLoading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(loadFilms, (state, action) => {
+      state.films = action.payload;
+      state.filteredFilms = [...state.films];
+    })
     .addCase(changeGenre, (state, action) => {
       state.genre = action.payload;
     })
     .addCase(filterFilmsByGenre, (state) => {
       if (state.genre === ALL_GENRES) {
-        state.films = [...state.films];
+        state.filteredFilms = [...state.films];
       } else {
-        state.films = state.films.filter(
+        state.filteredFilms = state.films.filter(
           (activeFilm) => (
             activeFilm.genre === state.genre
           )
         );
       }
-    })
-    .addCase(loadFilms, (state, action) => {
-      state.films = action.payload;
     })
     .addCase(loadReviews, (state, action) => {
       state.reviews = action.payload;

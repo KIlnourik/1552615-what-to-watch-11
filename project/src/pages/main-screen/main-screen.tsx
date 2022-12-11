@@ -13,6 +13,8 @@ import { fetchPromoFilmAction } from '../../store/api-actions';
 
 function MainScreen(): JSX.Element {
   const promoFilm = useAppSelector((state) => state.promoFilm);
+  const films = useAppSelector((state) => state.filteredFilms);
+  const isPromoFilmLoading = useAppSelector((state) => state.isPromoFilmLoading);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -20,11 +22,8 @@ function MainScreen(): JSX.Element {
   }, [dispatch]);
 
   const [filmsListCount, setFilmsListCount] = useState(MAX_FILMS_COUNT);
-  const films = useAppSelector((state) => state.films);
   const isShowMoreButtonActive = films.length > MAX_FILMS_COUNT;
   const slicedFilms = films.slice(0, filmsListCount);
-
-  const isPromoFilmLoading = useAppSelector((state) => state.isPromoFilmLoading);
 
   const handleShowMoreButtonClick = () => {
     setFilmsListCount(filmsListCount + MAX_FILMS_COUNT);
@@ -38,7 +37,7 @@ function MainScreen(): JSX.Element {
 
   return (
     <>
-      <section className="film-card" style={{backgroundColor: promoFilm.backgroundColor}}>
+      <section className="film-card" style={{ backgroundColor: promoFilm.backgroundColor }}>
         <div className="film-card__bg">
           <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
         </div>
