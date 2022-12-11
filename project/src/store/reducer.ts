@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, filterFilmsByGenre, loadFilms, loadSimilarFilms, loadReviews, requireAuthorization, setFilmsLoadingStatus, setReviewsLoadingStatus, setSimilarFilmsLoadingStatus, uploadReview } from './action';
+import { changeGenre, filterFilmsByGenre, loadFilms, loadSimilarFilms, loadPromoFilm, loadReviews, requireAuthorization, setFilmsLoadingStatus, setReviewsLoadingStatus, setSimilarFilmsLoadingStatus, setPromoFilmLoadingStatus, uploadReview } from './action';
 import { ALL_GENRES, AuthorizationStatus } from '../const';
 import { Film } from '../types/films-types';
 import { Review } from '../types/reviews-types';
@@ -15,6 +15,26 @@ const emptyUserReview = {
   }
 };
 
+const emptyPromoFilm = {
+  id: 0,
+  name: '',
+  posterImage: '',
+  previewImage: '',
+  backgroundImage: '',
+  backgroundColor: '',
+  videoLink: '',
+  previewVideoLink: '',
+  description: '',
+  rating: 0,
+  scoresCount: 0,
+  director: '',
+  starring: [],
+  runTime: 0,
+  genre: '',
+  released: 0,
+  isFavorite: false,
+};
+
 type InitialState = {
   genre: string;
   films: Film[];
@@ -25,6 +45,8 @@ type InitialState = {
   isReviewsLoading: boolean;
   isSimilarFilmsLoading: boolean;
   userReview: Review;
+  promoFilm: Film;
+  isPromoFilmLoading: boolean;
 }
 
 const initialState: InitialState = {
@@ -37,6 +59,8 @@ const initialState: InitialState = {
   isReviewsLoading: false,
   isSimilarFilmsLoading: false,
   userReview: emptyUserReview,
+  promoFilm: emptyPromoFilm,
+  isPromoFilmLoading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -64,6 +88,9 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadSimilarFilms, (state, action) => {
       state.similarFilms = action.payload;
     })
+    .addCase(loadPromoFilm, (state, action) => {
+      state.promoFilm = action.payload;
+    })
     .addCase(setFilmsLoadingStatus, (state, action) => {
       state.isFilmsLoading = action.payload;
     })
@@ -72,6 +99,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setSimilarFilmsLoadingStatus, (state, action) => {
       state.isSimilarFilmsLoading = action.payload;
+    })
+    .addCase(setPromoFilmLoadingStatus, (state, action) => {
+      state.isPromoFilmLoading = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;

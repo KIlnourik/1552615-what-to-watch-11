@@ -8,12 +8,6 @@ import { getToken } from './services/token';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Settings = {
-  FilmTitle: 'The Grand Budapest Hotel',
-  FilmGenre: 'Drama',
-  ReleaseDate: 2014,
-} as const;
-
 if (getToken()) {
   store.dispatch(checkAuthAction);
 }
@@ -28,11 +22,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer />
-      <App
-        filmTitle={Settings.FilmTitle}
-        filmGenre={Settings.FilmGenre}
-        releaseDate={Settings.ReleaseDate}
-      />
+      <App/>
     </Provider>
   </React.StrictMode>,
 );

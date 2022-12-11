@@ -14,14 +14,7 @@ import Spinner from '../spinner/spinner';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
-
-type Props = {
-  filmTitle: string;
-  filmGenre: string;
-  releaseDate: number;
-};
-
-function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
+function App(): JSX.Element {
   const films = useAppSelector((state) => state.films);
   const reviews = useAppSelector((state) => state.reviews);
   const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
@@ -37,7 +30,7 @@ function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<MainScreen filmTitle={filmTitle} filmGenre={filmGenre} releaseDate={releaseDate} />}
+          element={<MainScreen />}
         />
         <Route
           path={AppRoute.SignIn}
