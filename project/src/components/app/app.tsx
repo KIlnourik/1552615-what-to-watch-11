@@ -14,14 +14,7 @@ import Spinner from '../spinner/spinner';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
-
-type Props = {
-  filmTitle: string;
-  filmGenre: string;
-  releaseDate: number;
-};
-
-function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
+function App(): JSX.Element {
   const films = useAppSelector((state) => state.films);
   const reviews = useAppSelector((state) => state.reviews);
   const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
@@ -37,7 +30,7 @@ function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<MainScreen filmTitle={filmTitle} filmGenre={filmGenre} releaseDate={releaseDate} />}
+          element={<MainScreen />}
         />
         <Route
           path={AppRoute.SignIn}
@@ -51,7 +44,7 @@ function App({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film} element={<FilmScreen films={films} />} >
+        <Route path={`${AppRoute.Film}:id`} element={<FilmScreen films={films} />} >
           <Route path={''} element={<Tabs tab={FilmTabs.Overview} films={films} reviews={reviews} />} />
           <Route path={'/films/:id/Details'} element={<Tabs tab={FilmTabs.Details} films={films} reviews={reviews} />} />
           <Route path={'/films/:id/Reviews'} element={<Tabs tab={FilmTabs.Reviews} films={films} reviews={reviews} />} />

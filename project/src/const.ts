@@ -2,7 +2,7 @@ export enum AppRoute {
   Root = '/',
   SignIn = '/login',
   MyList = '/mylist',
-  Film = '/films/:id',
+  Film = '/films/',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
 }
@@ -76,5 +76,32 @@ export enum APIRoute {
   Films = '/films',
   Login = '/login',
   Logout = '/logout',
-  Reviews = '/comments/',
+  Reviews = '/comments',
+  Promo = '/promo',
 }
+
+export const EmptyUserReview = {
+  comment: '',
+  rating: 0,
+  activeFilmId: '',
+};
+
+export const EmptyPromoFilm = {
+  id: 0,
+  name: '',
+  posterImage: '',
+  previewImage: '',
+  backgroundImage: '',
+  backgroundColor: '',
+  videoLink: '',
+  previewVideoLink: '',
+  description: '',
+  rating: 0,
+  scoresCount: 0,
+  director: '',
+  starring: [],
+  runTime: 0,
+  genre: '',
+  released: 0,
+  isFavorite: false,
+};

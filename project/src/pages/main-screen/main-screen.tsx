@@ -4,20 +4,24 @@ import Logo from '../../components/logo/logo';
 import { AppRoute, MAX_FILMS_COUNT } from '../../const';
 import GenresList from '../../components/genres-list/genres-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
-import { useAppSelector } from '../../hooks/index';
-import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
+import { useEffect, useState } from 'react';
 import LoginUserBlock from '../../components/login-user-block/login-user-block';
+import Spinner from '../../components/spinner/spinner';
+import { fetchPromoFilmAction } from '../../store/api-actions';
 
-type Props = {
-  filmTitle: string;
-  filmGenre: string;
-  releaseDate: number;
-};
 
-function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
+function MainScreen(): JSX.Element {
+  const promoFilm = useAppSelector((state) => state.promoFilm);
+  const films = useAppSelector((state) => state.filteredFilms);
+  const isPromoFilmLoading = useAppSelector((state) => state.isPromoFilmLoading);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPromoFilmAction());
+  }, [dispatch]);
+
   const [filmsListCount, setFilmsListCount] = useState(MAX_FILMS_COUNT);
-
-  const films = useAppSelector((state) => state.films);
   const isShowMoreButtonActive = films.length > MAX_FILMS_COUNT;
   const slicedFilms = films.slice(0, filmsListCount);
 
@@ -25,11 +29,17 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
     setFilmsListCount(filmsListCount + MAX_FILMS_COUNT);
   };
 
+  if (isPromoFilmLoading) {
+    return (
+      <Spinner />
+    );
+  }
+
   return (
     <>
-      <section className="film-card">
+      <section className="film-card" style={{ backgroundColor: promoFilm.backgroundColor }}>
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -44,14 +54,14 @@ function MainScreen({ filmTitle, filmGenre, releaseDate }: Props): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={promoFilm.posterImage} alt={`${promoFilm.name} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{filmTitle}</h2>
+              <h2 className="film-card__title">{promoFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{filmGenre}</span>
-                <span className="film-card__year">{releaseDate}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
