@@ -2,7 +2,7 @@ export enum AppRoute {
   Root = '/',
   SignIn = '/login',
   MyList = '/mylist',
-  Film = '/films/:id',
+  Film = '/films/',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
 }
@@ -76,19 +76,14 @@ export enum APIRoute {
   Films = '/films',
   Login = '/login',
   Logout = '/logout',
-  Reviews = '/comments/',
+  Reviews = '/comments',
   Promo = '/promo',
 }
 
 export const EmptyUserReview = {
   comment: '',
-  date: '',
-  id: 0,
   rating: 0,
-  user: {
-    id: 0,
-    name: '',
-  }
+  activeFilmId: '',
 };
 
 export const EmptyPromoFilm = {

@@ -2,6 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { Film } from '../types/films-types';
 import {AuthorizationStatus, AppRoute} from '../const';
 import { Review } from '../types/reviews-types';
+import { UserReview } from '../types/user-review';
 
 export const changeGenre = createAction('genre/changeGenre', (activeGenre) => ({
   payload: activeGenre as string,
@@ -27,6 +28,6 @@ export const setReviewsLoadingStatus = createAction<boolean>('films/setReviewsLo
 
 export const setSimilarFilmsLoadingStatus = createAction<boolean>('films/setSimilarFilmsLoadingStatus');
 
-export const uploadReview = createAction<Review>('films/uploadReview');
+export const sendReview = createAction<UserReview>('user/uploadReview');
 
 export const redirectToRoute = createAction<AppRoute>('films/redirectToRoute');

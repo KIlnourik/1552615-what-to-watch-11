@@ -7,6 +7,7 @@ import { APIRoute, AuthorizationStatus, AppRoute } from '../const';
 import { AppDispatch, State } from '../types/state';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
+import { UserReview } from '../types/user-review';
 import { saveToken, dropToken } from '../services/token';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
@@ -59,7 +60,7 @@ export const fetchReviewsAction = createAsyncThunk<void, string, {
   'film/fetchReviews',
   async(id, {dispatch, extra: api}) => {
     dispatch(setReviewsLoadingStatus(true));
-    const {data} = await api.get<Review[]>(`${APIRoute.Reviews}${id}`);
+    const {data} = await api.get<Review[]>(`${APIRoute.Reviews}/${id}`);
     dispatch(setReviewsLoadingStatus(false));
     dispatch(loadReviews(data));
   },
@@ -92,6 +93,18 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(redirectToRoute(AppRoute.Root));
+  },
+);
+
+export const sendReviewAction = createAsyncThunk<void, UserReview, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/sendReview',
+  async ({comment, rating, activeFilmId}, {dispatch, extra: api}) => {
+    await api.post<UserReview>(`${APIRoute.Reviews}/${activeFilmId}`, {comment, rating});
+    dispatch(redirectToRoute(AppRoute.Film));
   },
 );
 

@@ -3,6 +3,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import { Film } from '../../types/films-types';
 import { Link, useParams } from 'react-router-dom';
+import LoginUserBlock from '../../components/login-user-block/login-user-block';
 
 type Props = {
   films: Film[];
@@ -21,7 +22,7 @@ function AddReviewScreen({ films }: Props): JSX.Element {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={activeFilm.backgroundImage} alt="The Grand Budapest Hotel" />
+          <img src={activeFilm.backgroundImage} alt={activeFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -34,7 +35,7 @@ function AddReviewScreen({ films }: Props): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`films/${activeFilm.id}`} className="breadcrumbs__link">{activeFilm.name}</Link>
+                <Link to={`/films/${activeFilm.id}`} className="breadcrumbs__link">{activeFilm.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a href="#todo" className="breadcrumbs__link">Add review</a>
@@ -42,16 +43,7 @@ function AddReviewScreen({ films }: Props): JSX.Element {
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a href="#todo" className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <LoginUserBlock/>
         </header>
 
         <div className="film-card__poster film-card__poster--small">

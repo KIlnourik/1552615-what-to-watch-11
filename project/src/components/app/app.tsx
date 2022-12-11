@@ -44,7 +44,7 @@ function App(): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film} element={<FilmScreen films={films} />} >
+        <Route path={`${AppRoute.Film}:id`} element={<FilmScreen films={films} />} >
           <Route path={''} element={<Tabs tab={FilmTabs.Overview} films={films} reviews={reviews} />} />
           <Route path={'/films/:id/Details'} element={<Tabs tab={FilmTabs.Details} films={films} reviews={reviews} />} />
           <Route path={'/films/:id/Reviews'} element={<Tabs tab={FilmTabs.Reviews} films={films} reviews={reviews} />} />

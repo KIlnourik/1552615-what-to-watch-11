@@ -1,8 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, filterFilmsByGenre, loadFilms, loadSimilarFilms, loadPromoFilm, loadReviews, requireAuthorization, setFilmsLoadingStatus, setReviewsLoadingStatus, setSimilarFilmsLoadingStatus, setPromoFilmLoadingStatus, uploadReview } from './action';
+import { changeGenre, filterFilmsByGenre, loadFilms, loadSimilarFilms, loadPromoFilm, loadReviews, requireAuthorization, setFilmsLoadingStatus, setReviewsLoadingStatus, setSimilarFilmsLoadingStatus, setPromoFilmLoadingStatus, sendReview } from './action';
 import { ALL_GENRES, AuthorizationStatus, EmptyPromoFilm, EmptyUserReview } from '../const';
 import { Film } from '../types/films-types';
 import { Review } from '../types/reviews-types';
+import { UserReview } from '../types/user-review';
 
 type InitialState = {
   genre: string;
@@ -14,7 +15,7 @@ type InitialState = {
   isFilmsLoading: boolean;
   isReviewsLoading: boolean;
   isSimilarFilmsLoading: boolean;
-  userReview: Review;
+  userReview: UserReview;
   promoFilm: Film;
   isPromoFilmLoading: boolean;
 }
@@ -78,7 +79,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
-    .addCase(uploadReview, (state, action) => {
+    .addCase(sendReview, (state, action) => {
       state.userReview = action.payload;
     });
 });
