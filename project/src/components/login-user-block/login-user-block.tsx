@@ -15,13 +15,16 @@ function LoginUserBlock(): JSX.Element {
     dispatch(logoutAction());
   };
 
-  const noAuthUserComponent = (
-    <div className="user-block">
-      <Link to={AppRoute.SignIn} className="user-block__link">Sign in</Link>
-    </div>
-  );
+  if (!isAuthStatus(authStatus)) {
+    return (
+      <div className="user-block">
+        <Link to={AppRoute.SignIn} className="user-block__link">Sign in</Link>
+      </div>
+    );
 
-  const authUserComponent = (
+  }
+
+  return (
     <ul className="user-block">
       <li className="user-block__item">
         <div className="user-block__avatar">
@@ -33,9 +36,6 @@ function LoginUserBlock(): JSX.Element {
       </li>
     </ul>
   );
-
-  return isAuthStatus(authStatus) ? authUserComponent : noAuthUserComponent;
-
 }
 
 export default LoginUserBlock;
