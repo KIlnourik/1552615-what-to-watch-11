@@ -54,7 +54,7 @@ function FilmScreen({ films }: Props): JSX.Element {
 
         <footer className="page-footer">
           <div className="logo">
-            <Logo />
+            <Logo isFooter/>
           </div>
 
           <div className="copyright">
