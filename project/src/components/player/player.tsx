@@ -1,0 +1,92 @@
+import * as dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+import { useNavigate } from 'react-router-dom';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
+import { SECONDS_PER_HOUR } from '../../const';
+import Video from './video-component';
+import { Film } from '../../types/films-types';
+
+type Props = {
+  film: Film;
+};
+
+const getFormattedDuration = (seconds: number): string => {
+  dayjs.extend(duration);
+  return dayjs.duration(seconds, 'seconds').format(seconds > SECONDS_PER_HOUR ? 'HH:mm:ss' : 'mm:ss');
+};
+
+function Player({ film }: Props): JSX.Element {
+
+  const {name, videoLink} = film;
+
+  const playerRef = useRef<HTMLDivElement>(null);
+  const player = playerRef.current;
+
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isFullScreen, setFullScreen] = useState(false);
+  const [videoTotalTime, setvideoTotalTime] = useState(0);
+  const [watchedTime, setWatchedTime] = useState(0);
+
+  const playerProgress = Math.round((watchedTime / videoTotalTime) * 100) || 0;
+  const secondsLeft = Math.floor(videoTotalTime - watchedTime);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (player === null) {
+      return;
+    }
+
+    if (isFullScreen) {
+      player.requestFullscreen();
+    } else if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
+  }, [player, isFullScreen]);
+
+  const handlerExitClick = (evt: MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
+    navigate(-1);
+  };
+
+  return (
+    <div className="player" ref={playerRef}>
+      {isLoaded ? null : <div>Loading...</div>}
+      <Video
+        link={videoLink}
+        isPlaying={isPlaying}
+
+        setIsLoaded={() => setIsLoaded(true)}
+        setDuration={setvideoTotalTime}
+        setWatchedTime={setWatchedTime}
+      />
+      <button type="button" className="player__exit" onClick={handlerExitClick}>Exit</button>
+      <div className="player__controls">
+        <div className="player__controls-row">
+          <div className="player__time">
+            <progress className="player__progress" value={playerProgress} max="100" />
+            <div className="player__toggler" style={{ left: `${playerProgress}%` }}>Toggler</div>
+          </div>
+          <div className="player__time-value">{`-${getFormattedDuration(secondsLeft)}`}</div>
+        </div>
+        <div className="player__controls-row">
+          <button type="button" className="player__play" onClick={() => setIsPlaying(!isPlaying)}>
+            <svg viewBox="0 0 19 19" width="19" height="19">
+              {isPlaying ? <use xlinkHref="#pause" /> : <use xlinkHref="#play-s" />}
+            </svg>
+            <span>Play</span>
+          </button>
+          <div className="player__name">{name}</div>
+          <button type="button" className="player__full-screen" onClick={() => setFullScreen(!isFullScreen)}>
+            <svg viewBox="0 0 27 27" width="27" height="27">
+              <use xlinkHref="#full-screen" />
+            </svg>
+            <span>Full screen</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Player;

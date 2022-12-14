@@ -1,33 +1,21 @@
 import { Link } from 'react-router-dom';
-import FilmCardsList from '../../components/film-cards-list/film-cards-list';
-import Logo from '../../components/logo/logo';
-import { AppRoute, MAX_FILMS_COUNT } from '../../const';
-import GenresList from '../../components/genres-list/genres-list';
-import ShowMoreButton from '../../components/show-more-button/show-more-button';
+import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { fetchPromoFilmAction } from '../../store/api-actions';
+import Logo from '../../components/logo/logo';
 import LoginUserBlock from '../../components/login-user-block/login-user-block';
 import Spinner from '../../components/spinner/spinner';
-import { fetchPromoFilmAction } from '../../store/api-actions';
-
+import MainScreenCatalog from '../../components/main-screen-catalog/main-screen-catalog';
 
 function MainScreen(): JSX.Element {
   const promoFilm = useAppSelector((state) => state.promoFilm);
-  const films = useAppSelector((state) => state.filteredFilms);
-  const isPromoFilmLoading = useAppSelector((state) => state.isPromoFilmLoading);
   const dispatch = useAppDispatch();
+  const isPromoFilmLoading = useAppSelector((state) => state.isPromoFilmLoading);
 
   useEffect(() => {
     dispatch(fetchPromoFilmAction());
   }, [dispatch]);
-
-  const [filmsListCount, setFilmsListCount] = useState(MAX_FILMS_COUNT);
-  const isShowMoreButtonActive = films.length > MAX_FILMS_COUNT;
-  const slicedFilms = films.slice(0, filmsListCount);
-
-  const handleShowMoreButtonClick = () => {
-    setFilmsListCount(filmsListCount + MAX_FILMS_COUNT);
-  };
 
   if (isPromoFilmLoading) {
     return (
@@ -65,12 +53,12 @@ function MainScreen(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <Link to={`/player/${promoFilm.id}`} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
+                </Link>
                 <Link to={AppRoute.MyList} className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
@@ -85,16 +73,11 @@ function MainScreen(): JSX.Element {
       </section>
       <div className="page-content">
         <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-          <GenresList />
-
-          <FilmCardsList films={slicedFilms} />
-          {isShowMoreButtonActive && <ShowMoreButton handleShowMoreButtonClick={handleShowMoreButtonClick} />}
+          <MainScreenCatalog />
         </section>
         <footer className="page-footer">
           <div className="logo">
-            <Logo />
+            <Logo isFooter/>
           </div>
 
           <div className="copyright">

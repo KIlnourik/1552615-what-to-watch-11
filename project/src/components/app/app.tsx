@@ -10,20 +10,11 @@ import PlayerScreen from '../../pages/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import Tabs from '../tabs/tabs';
 import { useAppSelector } from '../../hooks';
-import Spinner from '../spinner/spinner';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
   const films = useAppSelector((state) => state.films);
-  const reviews = useAppSelector((state) => state.reviews);
-  const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
-
-  if (isFilmsLoading) {
-    return (
-      <Spinner />
-    );
-  }
 
   return (
     <HistoryRouter history={browserHistory}>
@@ -44,14 +35,14 @@ function App(): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={`${AppRoute.Film}:id`} element={<FilmScreen films={films} />} >
-          <Route path={''} element={<Tabs tab={FilmTabs.Overview} films={films} reviews={reviews} />} />
-          <Route path={'/films/:id/Details'} element={<Tabs tab={FilmTabs.Details} films={films} reviews={reviews} />} />
-          <Route path={'/films/:id/Reviews'} element={<Tabs tab={FilmTabs.Reviews} films={films} reviews={reviews} />} />
+        <Route path={`${AppRoute.Film}:id`} element={<FilmScreen />} >
+          <Route path={''} element={<Tabs tab={FilmTabs.Overview} />} />
+          <Route path={'/films/:id/Details'} element={<Tabs tab={FilmTabs.Details} />} />
+          <Route path={'/films/:id/Reviews'} element={<Tabs tab={FilmTabs.Reviews} />} />
         </Route>
 
         <Route path={AppRoute.AddReview} element={<AddReviewScreen films={films} />} />
-        <Route path={AppRoute.Player} element={<PlayerScreen films={films} />} />
+        <Route path={AppRoute.Player} element={<PlayerScreen />} />
         <Route
           path='*'
           element={<NotFoundScreen />}

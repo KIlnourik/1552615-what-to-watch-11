@@ -54,6 +54,8 @@ export const AUTOPLAY_TIMEOUT = 1000;
 
 export const MINUTES_PER_HOUR = 60;
 
+export const SECONDS_PER_HOUR = 3600;
+
 export const FilmTabs = {
   Overview: 'Overview',
   Details: 'Details',

@@ -4,27 +4,27 @@ import OverviewTab from '../overview-tab/overview-tab';
 import DetailsTab from '../details-tab/details-tab';
 import ReviewsTab from '../reviews-tab/reviews-tab';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { Review } from '../../types/reviews-types';
 import { Link, useParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
 
 type Props = {
   tab: string;
-  films: Film[];
-  reviews: Review[];
 };
 
-function renderTabs(tab: string, film: Film, reviews: Review[]) {
+function renderTabs(tab: string, film: Film) {
+
   switch (tab) {
     case FilmTabs.Overview:
       return <OverviewTab film={film} />;
     case FilmTabs.Details:
       return <DetailsTab film={film} />;
     case FilmTabs.Reviews:
-      return <ReviewsTab reviews={reviews} />;
+      return <ReviewsTab />;
   }
 }
 
-function Tabs({ tab, films, reviews }: Props): JSX.Element {
+function Tabs({ tab }: Props): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   const { id } = useParams();
   const activeFilm = films.find((film) => film.id.toString() === id);
   if (!activeFilm) {
@@ -46,7 +46,7 @@ function Tabs({ tab, films, reviews }: Props): JSX.Element {
         </ul>
       </nav>
 
-      {renderTabs(tab, activeFilm, reviews)}
+      {renderTabs(tab, activeFilm )}
     </div>
   );
 }
