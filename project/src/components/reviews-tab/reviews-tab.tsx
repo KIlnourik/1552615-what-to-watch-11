@@ -1,8 +1,5 @@
+import { useAppSelector } from '../../hooks';
 import { Review } from '../../types/reviews-types';
-
-type Props = {
-  reviews: Review[];
-}
 
 function getReview(review: Review): JSX.Element {
   return (
@@ -21,7 +18,9 @@ function getReview(review: Review): JSX.Element {
   );
 }
 
-function ReviewsTab({reviews}: Props): JSX.Element {
+function ReviewsTab(): JSX.Element {
+
+  const reviews = useAppSelector((state) => state.reviews);
   const userReviews = [...reviews];
   return (
     <div className="film-card__reviews film-card__row">

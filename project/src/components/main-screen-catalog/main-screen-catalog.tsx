@@ -1,15 +1,21 @@
 import { MAX_FILMS_COUNT } from '../../const';
-import { useAppSelector } from '../../hooks/index';
-import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
+import { useEffect, useState } from 'react';
 import FilmCardsList from '../../components/film-cards-list/film-cards-list';
 import GenresList from '../../components/genres-list/genres-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import Spinner from '../spinner/spinner';
+import { fetchFilmsAction } from '../../store/api-actions';
 
 function MainScreenCatalog(): JSX.Element {
 
-  const films = useAppSelector((state) => state.filteredFilms);
+  const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    dispatch(fetchFilmsAction());
+  }, [dispatch]);
+
+  const films = useAppSelector((state) => state.filteredFilms);
   const [filmsListCount, setFilmsListCount] = useState(MAX_FILMS_COUNT);
   const isShowMoreButtonActive = films.length > MAX_FILMS_COUNT;
   const slicedFilms = films.slice(0, filmsListCount);

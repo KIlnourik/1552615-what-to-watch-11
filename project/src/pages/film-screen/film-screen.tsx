@@ -1,7 +1,6 @@
 import Logo from '../../components/logo/logo';
 import FilmCardsList from '../../components/film-cards-list/film-cards-list';
 import FilmCardFull from '../../components/film-card-full/film-card-full';
-import { Film } from '../../types/films-types';
 import { useNavigate, useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -9,11 +8,9 @@ import { useEffect } from 'react';
 import { fetchReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
 
-type Props = {
-  films: Film[];
-}
+function FilmScreen(): JSX.Element {
 
-function FilmScreen({ films }: Props): JSX.Element {
+  const films = useAppSelector((state) => state.films);
 
   const { id } = useParams();
 
