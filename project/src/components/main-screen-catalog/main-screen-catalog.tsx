@@ -17,7 +17,7 @@ function MainScreenCatalog(): JSX.Element {
 
   const films = useAppSelector((state) => state.filteredFilms);
   const [filmsListCount, setFilmsListCount] = useState(MAX_FILMS_COUNT);
-  const isShowMoreButtonActive = films.length > MAX_FILMS_COUNT;
+  // const isShowMoreButtonActive = films.length > MAX_FILMS_COUNT;
   const slicedFilms = films.slice(0, filmsListCount);
 
   const handleShowMoreButtonClick = () => {
@@ -39,7 +39,7 @@ function MainScreenCatalog(): JSX.Element {
       <GenresList />
 
       <FilmCardsList films={slicedFilms} />
-      {isShowMoreButtonActive && <ShowMoreButton handleShowMoreButtonClick={handleShowMoreButtonClick} />}
+      {films.length > filmsListCount && <ShowMoreButton handleShowMoreButtonClick={handleShowMoreButtonClick} />}
     </>
   );
 }

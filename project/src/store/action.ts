@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Film } from '../types/films-types';
-import {AuthorizationStatus, AppRoute} from '../const';
+import { AuthorizationStatus, AppRoute } from '../const';
 import { Review } from '../types/reviews-types';
 import { UserReview } from '../types/user-review';
 
@@ -30,4 +30,10 @@ export const setSimilarFilmsLoadingStatus = createAction<boolean>('films/setSimi
 
 export const sendReview = createAction<UserReview>('user/uploadReview');
 
+export const loadFavoriteFilms = createAction<Film[]>('user/loadFavoriteFilms');
+
+export const setFavoriteFilmsLoadingStatus = createAction<boolean>('user/setFavoriteFilmsLoadingStatus');
+
 export const redirectToRoute = createAction<AppRoute>('films/redirectToRoute');
+
+export const setFavoriteFilms = createAction<Film[]>('user/addToFavoriteFilms');

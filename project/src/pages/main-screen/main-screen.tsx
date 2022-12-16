@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { useEffect } from 'react';
 import { fetchPromoFilmAction } from '../../store/api-actions';
@@ -7,6 +6,7 @@ import Logo from '../../components/logo/logo';
 import LoginUserBlock from '../../components/login-user-block/login-user-block';
 import Spinner from '../../components/spinner/spinner';
 import MainScreenCatalog from '../../components/main-screen-catalog/main-screen-catalog';
+import MyListButton from '../../components/my-list-button/my-list-button';
 
 function MainScreen(): JSX.Element {
   const promoFilm = useAppSelector((state) => state.promoFilm);
@@ -59,13 +59,8 @@ function MainScreen(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </Link>
-                <Link to={AppRoute.MyList} className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </Link>
+
+                <MyListButton film={promoFilm} />
               </div>
             </div>
           </div>
@@ -77,7 +72,7 @@ function MainScreen(): JSX.Element {
         </section>
         <footer className="page-footer">
           <div className="logo">
-            <Logo isFooter/>
+            <Logo isFooter />
           </div>
 
           <div className="copyright">

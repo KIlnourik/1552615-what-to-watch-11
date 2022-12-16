@@ -31,7 +31,7 @@ function App(): JSX.Element {
           path={AppRoute.MyList}
           element={
             <PrivateRoute>
-              <MyListScreen films={films} />
+              <MyListScreen />
             </PrivateRoute>
           }
         />

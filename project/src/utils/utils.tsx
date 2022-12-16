@@ -15,7 +15,7 @@ export function getRatingValues(maxRating: number): number[] {
   for (let i = 1; i <= maxRating; i++) {
     ratingArray.push(i);
   }
-  return ratingArray;
+  return ratingArray.reverse();
 }
 
 export function getTimeUserView(runTime: number): string {

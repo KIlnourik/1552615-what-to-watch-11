@@ -3,15 +3,14 @@ import Logo from '../logo/logo';
 import { Link, Outlet } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import LoginUserBlock from '../login-user-block/login-user-block';
-import { Review } from '../../types/reviews-types';
 import { useAppSelector } from '../../hooks';
+import MyListButton from '../my-list-button/my-list-button';
 
 type Props = {
   film: Film;
-  reviews: Review[];
 }
 
-function FilmCardFull({ film, reviews }: Props) {
+function FilmCardFull({ film }: Props) {
   const { id, name, posterImage, backgroundImage, backgroundColor, genre, released } = film;
   const authStatus = useAppSelector((state) => state.authorizationStatus);
 
@@ -47,13 +46,7 @@ function FilmCardFull({ film, reviews }: Props) {
                 </svg>
                 <span>Play</span>
               </Link>
-              <Link to={AppRoute.MyList} className="btn btn--list film-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-                <span className="film-card__count">9</span>
-              </Link>
+              <MyListButton film={film} />
               <Link to={authStatus === AuthorizationStatus.Auth ? `/films/${id}/review` : `${AppRoute.SignIn}`} className="btn film-card__button">Add review</Link>
             </div>
           </div>

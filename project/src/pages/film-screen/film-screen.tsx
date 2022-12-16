@@ -27,7 +27,6 @@ function FilmScreen(): JSX.Element {
     }
   }, [activeFilm, dispatch, navigate]);
 
-  const reviews = useAppSelector((state) => state.reviews);
   const similarFilms = useAppSelector((state) => state.similarFilms).slice(0, 3);
   const isReviewsLoading = useAppSelector((state) => state.isReviewsLoading);
   const isSimilarFilmsLoading = useAppSelector((state) => state.isSimilarFilmsLoading);
@@ -41,7 +40,7 @@ function FilmScreen(): JSX.Element {
 
   return (
     <>
-      <FilmCardFull film={activeFilm} reviews={reviews} />
+      <FilmCardFull film={activeFilm} />
       <div className="page-content">
 
         <section className="catalog catalog--like-this">
@@ -51,7 +50,7 @@ function FilmScreen(): JSX.Element {
 
         <footer className="page-footer">
           <div className="logo">
-            <Logo isFooter/>
+            <Logo isFooter />
           </div>
 
           <div className="copyright">

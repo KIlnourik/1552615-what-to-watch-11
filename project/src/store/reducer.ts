@@ -1,5 +1,21 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, filterFilmsByGenre, loadFilms, loadSimilarFilms, loadPromoFilm, loadReviews, requireAuthorization, setFilmsLoadingStatus, setReviewsLoadingStatus, setSimilarFilmsLoadingStatus, setPromoFilmLoadingStatus, sendReview } from './action';
+import {
+  changeGenre,
+  filterFilmsByGenre,
+  loadFilms,
+  loadSimilarFilms,
+  loadPromoFilm,
+  loadReviews,
+  loadFavoriteFilms,
+  requireAuthorization,
+  setFilmsLoadingStatus,
+  setReviewsLoadingStatus,
+  setSimilarFilmsLoadingStatus,
+  setPromoFilmLoadingStatus,
+  setFavoriteFilmsLoadingStatus,
+  sendReview,
+  setFavoriteFilms,
+} from './action';
 import { ALL_GENRES, AuthorizationStatus, EmptyPromoFilm, EmptyUserReview } from '../const';
 import { Film } from '../types/films-types';
 import { Review } from '../types/reviews-types';
@@ -15,6 +31,8 @@ type InitialState = {
   isFilmsLoading: boolean;
   isReviewsLoading: boolean;
   isSimilarFilmsLoading: boolean;
+  favoriteFilms: Film[];
+  isFavoriteFilmsLoading: boolean;
   userReview: UserReview;
   promoFilm: Film;
   isPromoFilmLoading: boolean;
@@ -26,10 +44,12 @@ const initialState: InitialState = {
   filteredFilms: [],
   similarFilms: [],
   reviews: [],
+  favoriteFilms: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isFilmsLoading: false,
   isReviewsLoading: false,
   isSimilarFilmsLoading: false,
+  isFavoriteFilmsLoading: false,
   userReview: EmptyUserReview,
   promoFilm: EmptyPromoFilm,
   isPromoFilmLoading: false,
@@ -64,6 +84,9 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadPromoFilm, (state, action) => {
       state.promoFilm = action.payload;
     })
+    .addCase(loadFavoriteFilms, (state, action) => {
+      state.favoriteFilms = action.payload;
+    })
     .addCase(setFilmsLoadingStatus, (state, action) => {
       state.isFilmsLoading = action.payload;
     })
@@ -76,11 +99,17 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setPromoFilmLoadingStatus, (state, action) => {
       state.isPromoFilmLoading = action.payload;
     })
+    .addCase(setFavoriteFilmsLoadingStatus, (state, action) => {
+      state.isFavoriteFilmsLoading = action.payload;
+    })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
     .addCase(sendReview, (state, action) => {
       state.userReview = action.payload;
+    })
+    .addCase(setFavoriteFilms, (state, action) => {
+      state.favoriteFilms = action.payload;
     });
 });
 
