@@ -28,7 +28,7 @@ function FilmScreen(): JSX.Element {
     }
   }, [activeFilm, dispatch, navigate]);
 
-  const similarFilms = useAppSelector(getSimilarFilms).slice(0, 3);
+  const similarFilms = useAppSelector(getSimilarFilms);
   const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
   const isSimilarFilmsLoading = useAppSelector(getSimilarFilmsLoadingStatus);
   if (isReviewsLoading || isSimilarFilmsLoading) {
