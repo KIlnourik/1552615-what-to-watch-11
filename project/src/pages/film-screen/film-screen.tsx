@@ -7,10 +7,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
+import { getFilms, getReviewsLoadingStatus, getSimilarFilms, getSimilarFilmsLoadingStatus } from '../../store/data-process/selector';
 
 function FilmScreen(): JSX.Element {
 
-  const films = useAppSelector((state) => state.films);
+  const films = useAppSelector(getFilms);
 
   const { id } = useParams();
 
@@ -27,10 +28,9 @@ function FilmScreen(): JSX.Element {
     }
   }, [activeFilm, dispatch, navigate]);
 
-  const reviews = useAppSelector((state) => state.reviews);
-  const similarFilms = useAppSelector((state) => state.similarFilms).slice(0, 3);
-  const isReviewsLoading = useAppSelector((state) => state.isReviewsLoading);
-  const isSimilarFilmsLoading = useAppSelector((state) => state.isSimilarFilmsLoading);
+  const similarFilms = useAppSelector(getSimilarFilms).slice(0, 3);
+  const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
+  const isSimilarFilmsLoading = useAppSelector(getSimilarFilmsLoadingStatus);
   if (isReviewsLoading || isSimilarFilmsLoading) {
     return <Spinner />;
   }
@@ -41,7 +41,7 @@ function FilmScreen(): JSX.Element {
 
   return (
     <>
-      <FilmCardFull film={activeFilm} reviews={reviews} />
+      <FilmCardFull film={activeFilm} />
       <div className="page-content">
 
         <section className="catalog catalog--like-this">
@@ -51,7 +51,7 @@ function FilmScreen(): JSX.Element {
 
         <footer className="page-footer">
           <div className="logo">
-            <Logo isFooter/>
+            <Logo isFooter />
           </div>
 
           <div className="copyright">

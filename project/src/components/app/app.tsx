@@ -12,9 +12,10 @@ import Tabs from '../tabs/tabs';
 import { useAppSelector } from '../../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import { getFilms } from '../../store/data-process/selector';
 
 function App(): JSX.Element {
-  const films = useAppSelector((state) => state.films);
+  const films = useAppSelector(getFilms);
 
   return (
     <HistoryRouter history={browserHistory}>
@@ -31,7 +32,7 @@ function App(): JSX.Element {
           path={AppRoute.MyList}
           element={
             <PrivateRoute>
-              <MyListScreen films={films} />
+              <MyListScreen />
             </PrivateRoute>
           }
         />

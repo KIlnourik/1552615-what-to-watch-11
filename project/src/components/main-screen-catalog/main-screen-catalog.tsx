@@ -5,26 +5,27 @@ import FilmCardsList from '../../components/film-cards-list/film-cards-list';
 import GenresList from '../../components/genres-list/genres-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import Spinner from '../spinner/spinner';
-import { fetchFilmsAction } from '../../store/api-actions';
+import { getFilteredFilms } from '../../store/catalog-process/selector';
+import { getFilmsLoadingStatus } from '../../store/data-process/selector';
+import { filterFilmsByGenre } from '../../store/catalog-process/catalog-process';
+import { getFilms } from '../../store/data-process/selector';
 
 function MainScreenCatalog(): JSX.Element {
-
   const dispatch = useAppDispatch();
+  const films = useAppSelector(getFilms);
+  const filteredFilms = useAppSelector(getFilteredFilms);
+  const [filmsListCount, setFilmsListCount] = useState(MAX_FILMS_COUNT);
+  const slicedFilms = filteredFilms.slice(0, filmsListCount);
 
   useEffect(() => {
-    dispatch(fetchFilmsAction());
-  }, [dispatch]);
-
-  const films = useAppSelector((state) => state.filteredFilms);
-  const [filmsListCount, setFilmsListCount] = useState(MAX_FILMS_COUNT);
-  const isShowMoreButtonActive = films.length > MAX_FILMS_COUNT;
-  const slicedFilms = films.slice(0, filmsListCount);
+    dispatch(filterFilmsByGenre(films));
+  }, [dispatch, films]);
 
   const handleShowMoreButtonClick = () => {
     setFilmsListCount(filmsListCount + MAX_FILMS_COUNT);
   };
 
-  const isFilmsLoading = useAppSelector((state) => state.isFilmsLoading);
+  const isFilmsLoading = useAppSelector(getFilmsLoadingStatus);
 
   if (isFilmsLoading) {
     return (
@@ -39,7 +40,7 @@ function MainScreenCatalog(): JSX.Element {
       <GenresList />
 
       <FilmCardsList films={slicedFilms} />
-      {isShowMoreButtonActive && <ShowMoreButton handleShowMoreButtonClick={handleShowMoreButtonClick} />}
+      {films.length > filmsListCount && <ShowMoreButton handleShowMoreButtonClick={handleShowMoreButtonClick} />}
     </>
   );
 }

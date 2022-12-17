@@ -80,6 +80,7 @@ export enum APIRoute {
   Logout = '/logout',
   Reviews = '/comments',
   Promo = '/promo',
+  Favorite = '/favorite',
 }
 
 export const EmptyUserReview = {
@@ -107,3 +108,13 @@ export const EmptyPromoFilm = {
   released: 0,
   isFavorite: false,
 };
+
+export const MIN_COMMENT_LENGTH = 50;
+
+export const MAX_COMMENT_LENGTH = 400;
+
+export enum NameSpace {
+    Data = 'DATA',
+    Catalog = 'Catalog',
+    User = 'USER',
+}
