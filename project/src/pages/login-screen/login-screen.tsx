@@ -13,7 +13,7 @@ function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const authStatus = useAppSelector(getAuthorizationStatus);
-  const pattern = '[A-Za-z]+[0-9]|[0-9]+[A-Za-z]';
+  const pattern = '[A-Za-z]+[0-9]|[0-9]+[A-Za-z]{}';
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
