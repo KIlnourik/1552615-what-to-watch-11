@@ -1,4 +1,5 @@
 import { useAppSelector } from '../../hooks';
+import { getReviews } from '../../store/data-process/selector';
 import { Review } from '../../types/reviews-types';
 
 function getReview(review: Review): JSX.Element {
@@ -20,7 +21,7 @@ function getReview(review: Review): JSX.Element {
 
 function ReviewsTab(): JSX.Element {
 
-  const reviews = useAppSelector((state) => state.reviews);
+  const reviews = useAppSelector(getReviews);
   const userReviews = [...reviews];
   return (
     <div className="film-card__reviews film-card__row">

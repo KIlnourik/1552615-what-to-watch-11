@@ -5,13 +5,14 @@ import { FormEvent, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthData } from '../../types/auth-data';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { getAuthorizationStatus } from '../../store/user-process/selector';
 
 function LoginScreen(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
   const pattern = '[A-Za-z]+[0-9]|[0-9]+[A-Za-z]';
 
   const onSubmit = (authData: AuthData) => {

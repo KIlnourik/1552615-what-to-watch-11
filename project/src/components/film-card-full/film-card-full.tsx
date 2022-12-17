@@ -5,6 +5,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import LoginUserBlock from '../login-user-block/login-user-block';
 import { useAppSelector } from '../../hooks';
 import MyListButton from '../my-list-button/my-list-button';
+import { getAuthorizationStatus } from '../../store/user-process/selector';
 
 type Props = {
   film: Film;
@@ -12,7 +13,7 @@ type Props = {
 
 function FilmCardFull({ film }: Props) {
   const { id, name, posterImage, backgroundImage, backgroundColor, genre, released } = film;
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
 
   return (
     <section className="film-card film-card--full" style={{ backgroundColor: backgroundColor }}>

@@ -1,20 +1,22 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { useEffect } from 'react';
-import { fetchPromoFilmAction } from '../../store/api-actions';
+import { fetchPromoFilmAction, fetchFilmsAction } from '../../store/api-actions';
 import Logo from '../../components/logo/logo';
 import LoginUserBlock from '../../components/login-user-block/login-user-block';
 import Spinner from '../../components/spinner/spinner';
 import MainScreenCatalog from '../../components/main-screen-catalog/main-screen-catalog';
 import MyListButton from '../../components/my-list-button/my-list-button';
+import { getPromoFilm, getPromoFilmLoadingStatus } from '../../store/data-process/selector';
 
 function MainScreen(): JSX.Element {
-  const promoFilm = useAppSelector((state) => state.promoFilm);
+  const promoFilm = useAppSelector(getPromoFilm);
   const dispatch = useAppDispatch();
-  const isPromoFilmLoading = useAppSelector((state) => state.isPromoFilmLoading);
+  const isPromoFilmLoading = useAppSelector(getPromoFilmLoadingStatus);
 
   useEffect(() => {
     dispatch(fetchPromoFilmAction());
+    dispatch(fetchFilmsAction());
   }, [dispatch]);
 
   if (isPromoFilmLoading) {

@@ -3,11 +3,12 @@ import FilmCardsList from '../../components/film-cards-list/film-cards-list';
 import LoginUserBlock from '../../components/login-user-block/login-user-block';
 import { useAppSelector } from '../../hooks';
 import Spinner from '../../components/spinner/spinner';
+import { getFavoriteFilms, getFavoriteFilmsLoadingStatus } from '../../store/data-process/selector';
 
 function MyListScreen(): JSX.Element {
 
-  const favoriteFilms = useAppSelector((state) => state.favoriteFilms);
-  const isFavoriteFilmsLoading = useAppSelector((state) => state.isFavoriteFilmsLoading);
+  const favoriteFilms = useAppSelector(getFavoriteFilms);
+  const isFavoriteFilmsLoading = useAppSelector(getFavoriteFilmsLoadingStatus);
 
   if (isFavoriteFilmsLoading) {
     return <Spinner />;

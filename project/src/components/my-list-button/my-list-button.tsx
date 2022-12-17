@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setFavoriteFilmsAction, fetchFavoriteFilmsAction } from '../../store/api-actions';
+import { getFavoriteFilms } from '../../store/data-process/selector';
+import { getAuthorizationStatus } from '../../store/user-process/selector';
 import { Film } from '../../types/films-types';
 
 type Props = {
@@ -19,8 +21,8 @@ function MyListButton({ film }: Props): JSX.Element {
     dispatch(fetchFavoriteFilmsAction());
   }, [dispatch]);
 
-  const favoriteFilms = useAppSelector((state) => state.favoriteFilms);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const favoriteFilms = useAppSelector(getFavoriteFilms);
+  const authStatus = useAppSelector(getAuthorizationStatus);
 
   const handleButtonClick = (): void => {
     if (authStatus !== AuthorizationStatus.Auth) {

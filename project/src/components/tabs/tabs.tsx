@@ -6,6 +6,7 @@ import ReviewsTab from '../reviews-tab/reviews-tab';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { Link, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
+import { getFilms } from '../../store/data-process/selector';
 
 type Props = {
   tab: string;
@@ -24,7 +25,7 @@ function renderTabs(tab: string, film: Film) {
 }
 
 function Tabs({ tab }: Props): JSX.Element {
-  const films = useAppSelector((state) => state.films);
+  const films = useAppSelector(getFilms);
   const { id } = useParams();
   const activeFilm = films.find((film) => film.id.toString() === id);
   if (!activeFilm) {

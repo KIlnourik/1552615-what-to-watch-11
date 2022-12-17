@@ -3,10 +3,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { SyntheticEvent } from 'react';
+import { getAuthorizationStatus } from '../../store/user-process/selector';
 
 function LoginUserBlock(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
 
   const isAuthStatus = (status: AuthorizationStatus) => status === AuthorizationStatus.Auth;
 
