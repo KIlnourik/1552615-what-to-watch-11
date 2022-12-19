@@ -4,13 +4,10 @@ import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { store } from './store/index';
 import { checkAuthAction } from './store/api-actions';
-import { getToken } from './services/token';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-if (getToken()) {
-  store.dispatch(checkAuthAction);
-}
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

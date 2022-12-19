@@ -18,14 +18,12 @@ function FilmScreen(): JSX.Element {
   const isFilmLoading = useAppSelector(getFilmLoadingStatus);
 
   useEffect(() => {
-    if (id && !film && !isFilmLoading) {
+    if (id && !isFilmLoading) {
       dispatch(fetchFilmAction(id));
       dispatch(fetchReviewsAction(id));
       dispatch(fetchSimilarFilmsAction(id));
-    } else {
-      <Spinner />;
     }
-  }, [id, dispatch, isFilmLoading, film]);
+  }, [dispatch, isFilmLoading, id]);
 
   if (isReviewsLoading || isSimilarFilmsLoading || isFilmLoading || !id || !film) {
     return <Spinner />;
