@@ -35,7 +35,7 @@ function AddReviewForm(): JSX.Element {
   const handleFormSubmit = () => {
     if (id) {
       onSubmit({ ...formData, activeFilmId: id });
-      navigate(`/films/${id}/reviews`);
+      navigate(`/films/${id}`);
     }
   };
 
