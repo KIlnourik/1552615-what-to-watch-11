@@ -12,17 +12,19 @@ type Props = {
 }
 
 function MyListButton({ film }: Props): JSX.Element {
-  const {id, isFavorite} = film;
+  const { id, isFavorite } = film;
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const authStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
-    dispatch(fetchFavoriteFilmsAction());
-  }, [dispatch]);
+    if (authStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteFilmsAction());
+    }
+  }, [dispatch, authStatus]);
 
   const favoriteFilms = useAppSelector(getFavoriteFilms);
-  const authStatus = useAppSelector(getAuthorizationStatus);
 
   const handleButtonClick = (): void => {
     if (authStatus !== AuthorizationStatus.Auth) {

@@ -1,47 +1,40 @@
 import Logo from '../../components/logo/logo';
 import FilmCardsList from '../../components/film-cards-list/film-cards-list';
 import FilmCardFull from '../../components/film-card-full/film-card-full';
-import { useNavigate, useParams } from 'react-router-dom';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { fetchReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
+import { fetchReviewsAction, fetchSimilarFilmsAction, fetchFilmAction } from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
-import { getFilms, getReviewsLoadingStatus, getSimilarFilms, getSimilarFilmsLoadingStatus } from '../../store/data-process/selector';
+import { getFilm, getReviewsLoadingStatus, getSimilarFilms, getSimilarFilmsLoadingStatus, getFilmLoadingStatus } from '../../store/data-process/selector';
 
 function FilmScreen(): JSX.Element {
-
-  const films = useAppSelector(getFilms);
-
   const { id } = useParams();
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const activeFilm = films.find((film) => film.id.toString() === id);
-
-  useEffect(() => {
-    if (!activeFilm) {
-      navigate('/*');
-    } else {
-      dispatch(fetchReviewsAction(activeFilm.id.toString()));
-      dispatch(fetchSimilarFilmsAction(activeFilm.id.toString()));
-    }
-  }, [activeFilm, dispatch, navigate]);
-
+  const film = useAppSelector(getFilm);
   const similarFilms = useAppSelector(getSimilarFilms);
   const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
   const isSimilarFilmsLoading = useAppSelector(getSimilarFilmsLoadingStatus);
-  if (isReviewsLoading || isSimilarFilmsLoading) {
-    return <Spinner />;
-  }
+  const isFilmLoading = useAppSelector(getFilmLoadingStatus);
 
-  if (!activeFilm) {
-    return <NotFoundScreen />;
+  useEffect(() => {
+    if (id && !film && !isFilmLoading) {
+      dispatch(fetchFilmAction(id));
+      dispatch(fetchReviewsAction(id));
+      dispatch(fetchSimilarFilmsAction(id));
+    } else {
+      <Spinner />;
+    }
+  }, [id, dispatch, isFilmLoading, film]);
+
+  if (isReviewsLoading || isSimilarFilmsLoading || isFilmLoading || !id || !film) {
+    return <Spinner />;
   }
 
   return (
     <>
-      <FilmCardFull film={activeFilm} />
+      <FilmCardFull film={film} />
       <div className="page-content">
 
         <section className="catalog catalog--like-this">

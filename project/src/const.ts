@@ -118,3 +118,6 @@ export enum NameSpace {
     Catalog = 'Catalog',
     User = 'USER',
 }
+
+export const EMAIL_REGULAR_EXPR = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+export const PASSWORD_REGULAR_EXPR = /^(?=.*\d)(?=.*[A-Za-zА-Яа-яЁё])([^\s]){2,}$/i;

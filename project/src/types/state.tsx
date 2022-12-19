@@ -11,10 +11,12 @@ export type AppDispatch = typeof store.dispatch;
 
 export type DataProcess = {
   films: Film[];
+  film: Film;
   filteredFilms: Film[];
   similarFilms: Film[];
   reviews: Review[];
   isFilmsLoading: boolean;
+  isFilmLoading: boolean;
   isReviewsLoading: boolean;
   isSimilarFilmsLoading: boolean;
   favoriteFilms: Film[];
