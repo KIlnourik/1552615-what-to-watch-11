@@ -23,7 +23,8 @@ function FilmScreen(): JSX.Element {
       dispatch(fetchReviewsAction(id));
       dispatch(fetchSimilarFilmsAction(id));
     }
-  }, [dispatch, isFilmLoading, id]);
+    // eslint-disable-next-line
+  }, [dispatch, id]);
 
   if (isReviewsLoading || isSimilarFilmsLoading || isFilmLoading || !id || !film) {
     return <Spinner />;
