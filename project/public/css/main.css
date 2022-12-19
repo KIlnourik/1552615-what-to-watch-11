@@ -849,15 +849,16 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+
   -ms-flex-wrap: wrap;
       flex-wrap: wrap; }
 
 .film-nav__item {
   margin-right: 35px;
+  cursor: pointer;
 }
   .film-nav__item--active .film-nav__link {
     font-weight: bold;
-    cursor: pointer;
   }
     .film-nav__item--active .film-nav__link::after {
       display: block; }
@@ -869,8 +870,10 @@ main {
   color: #EEE5B5;
   text-decoration: none;
   position: relative;
-  padding-bottom: 19px; }
-  .film-nav__link::after {
+  padding-bottom: 19px;
+  cursor: pointer;
+}
+.film-nav__link::after {
     content: '';
     position: absolute;
     z-index: 1;
