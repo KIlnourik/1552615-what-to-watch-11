@@ -8,7 +8,7 @@ export const getReviews = (state: State): Review[] => state[NameSpace.Data].revi
 export const getSimilarFilms = (state: State): Film[] => state[NameSpace.Data].similarFilms;
 export const getFavoriteFilms = (state: State): Film[] => state[NameSpace.Data].favoriteFilms;
 export const getPromoFilm = (state: State): Film => state[NameSpace.Data].promoFilm;
-export const getFilm = (state: State): Film => state[NameSpace.Data].film;
+export const getFilm = (state: State): Film | undefined => state[NameSpace.Data].film;
 export const getFilmsLoadingStatus = (state: State): boolean => state[NameSpace.Data].isFilmsLoading;
 export const getReviewsLoadingStatus = (state: State): boolean => state[NameSpace.Data].isReviewsLoading;
 export const getSimilarFilmsLoadingStatus = (state: State): boolean => state[NameSpace.Data].isSimilarFilmsLoading;

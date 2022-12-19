@@ -853,9 +853,12 @@ main {
       flex-wrap: wrap; }
 
 .film-nav__item {
-  margin-right: 35px; }
+  margin-right: 35px;
+}
   .film-nav__item--active .film-nav__link {
-    font-weight: bold; }
+    font-weight: bold;
+    cursor: pointer;
+  }
     .film-nav__item--active .film-nav__link::after {
       display: block; }
   .film-nav__item:last-child {

@@ -10,7 +10,6 @@ import { getFilm, getReviewsLoadingStatus, getSimilarFilms, getSimilarFilmsLoadi
 
 function FilmScreen(): JSX.Element {
   const { id } = useParams();
-
   const dispatch = useAppDispatch();
   const film = useAppSelector(getFilm);
   const similarFilms = useAppSelector(getSimilarFilms);
@@ -36,7 +35,6 @@ function FilmScreen(): JSX.Element {
     <>
       <FilmCardFull film={film} />
       <div className="page-content">
-
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <FilmCardsList films={similarFilms} />

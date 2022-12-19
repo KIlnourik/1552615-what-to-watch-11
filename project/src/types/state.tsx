@@ -11,7 +11,7 @@ export type AppDispatch = typeof store.dispatch;
 
 export type DataProcess = {
   films: Film[];
-  film: Film;
+  film?: Film;
   filteredFilms: Film[];
   similarFilms: Film[];
   reviews: Review[];

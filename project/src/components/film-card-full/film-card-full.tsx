@@ -1,11 +1,12 @@
 import { Film } from '../../types/films-types';
 import Logo from '../logo/logo';
-import { Link, Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import LoginUserBlock from '../login-user-block/login-user-block';
 import { useAppSelector } from '../../hooks';
 import MyListButton from '../my-list-button/my-list-button';
 import { getAuthorizationStatus } from '../../store/user-process/selector';
+import Tabs from '../../components/tabs/tabs';
 
 type Props = {
   film: Film;
@@ -60,7 +61,7 @@ function FilmCardFull({ film }: Props) {
             <img src={posterImage} alt="{name}" width="218" height="327" />
           </div>
 
-          <Outlet />
+          <Tabs film={film} />
         </div>
       </div>
     </section>

@@ -14,7 +14,7 @@ import { EmptyPromoFilm } from '../../const';
 
 const initialState: DataProcess = {
   films: [],
-  film: {} as Film,
+  film: undefined,
   filteredFilms: [],
   similarFilms: [],
   reviews: [],
