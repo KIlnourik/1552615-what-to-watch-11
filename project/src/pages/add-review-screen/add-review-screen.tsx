@@ -1,28 +1,22 @@
 import Logo from '../../components/logo/logo';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
-import { Film } from '../../types/films-types';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LoginUserBlock from '../../components/login-user-block/login-user-block';
+import { useAppSelector } from '../../hooks';
+import { getFilm } from '../../store/data-process/selector';
 
-type Props = {
-  films: Film[];
-}
+function AddReviewScreen(): JSX.Element {
+  const film = useAppSelector(getFilm);
 
-function AddReviewScreen({ films }: Props): JSX.Element {
-
-  const { id } = useParams();
-
-  const activeFilm = films.find((film) => film.id.toString() === id);
-  if (!activeFilm) {
-    return <NotFoundScreen />;
+  if (!film) {
+    return <div>Loading</div>;
   }
 
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={activeFilm.backgroundImage} alt={activeFilm.name} />
+          <img src={film.backgroundImage} alt={film.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -35,7 +29,7 @@ function AddReviewScreen({ films }: Props): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${activeFilm.id}`} className="breadcrumbs__link">{activeFilm.name}</Link>
+                <Link to={`/films/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a href="#todo" className="breadcrumbs__link">Add review</a>
@@ -47,7 +41,7 @@ function AddReviewScreen({ films }: Props): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={activeFilm.posterImage} alt={`${activeFilm.name} poster`} width="218" height="327" />
+          <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
         </div>
       </div>
 

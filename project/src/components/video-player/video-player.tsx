@@ -36,7 +36,7 @@ function VideoPlayer({ film, autoPlay }: Props): JSX.Element {
 
   }, [autoPlay]);
   return (
-    <video src={film.previewVideoLink} poster={film.posterImage} ref={videoRef} muted></video>
+    <video src={film.previewVideoLink} poster={film.previewImage} ref={videoRef} muted></video>
   );
 }
 

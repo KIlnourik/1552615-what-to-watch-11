@@ -14,15 +14,14 @@ function MainScreenCatalog(): JSX.Element {
   const dispatch = useAppDispatch();
   const films = useAppSelector(getFilms);
   const filteredFilms = useAppSelector(getFilteredFilms);
-  const [filmsListCount, setFilmsListCount] = useState(MAX_FILMS_COUNT);
-  const slicedFilms = filteredFilms.slice(0, filmsListCount);
+  const [filmsCount, setFilmsCount] = useState(MAX_FILMS_COUNT);
 
   useEffect(() => {
     dispatch(filterFilmsByGenre(films));
   }, [dispatch, films]);
 
   const handleShowMoreButtonClick = () => {
-    setFilmsListCount(filmsListCount + MAX_FILMS_COUNT);
+    setFilmsCount(filmsCount + MAX_FILMS_COUNT);
   };
 
   const isFilmsLoading = useAppSelector(getFilmsLoadingStatus);
@@ -36,11 +35,9 @@ function MainScreenCatalog(): JSX.Element {
   return (
     <>
       <h2 className="catalog__title visually-hidden">Catalog</h2>
-
       <GenresList />
-
-      <FilmCardsList films={slicedFilms} />
-      {films.length > filmsListCount && <ShowMoreButton handleShowMoreButtonClick={handleShowMoreButtonClick} />}
+      <FilmCardsList films={filteredFilms.slice(0, filmsCount)} />
+      {filteredFilms.length > filmsCount && <ShowMoreButton handleShowMoreButtonClick={handleShowMoreButtonClick} />}
     </>
   );
 }

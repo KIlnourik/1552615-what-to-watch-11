@@ -4,6 +4,7 @@ import { DataProcess } from '../../types/state';
 import { Film } from '../../types/films-types';
 import {
   fetchFilmsAction,
+  fetchFilmAction,
   fetchSimilarFilmsAction,
   fetchFavoriteFilmsAction,
   fetchPromoFilmAction,
@@ -13,12 +14,14 @@ import { EmptyPromoFilm } from '../../const';
 
 const initialState: DataProcess = {
   films: [],
+  film: undefined,
   filteredFilms: [],
   similarFilms: [],
   reviews: [],
   promoFilm: EmptyPromoFilm as Film,
   favoriteFilms: [],
   isFilmsLoading: false,
+  isFilmLoading: false,
   isReviewsLoading: false,
   isSimilarFilmsLoading: false,
   isFavoriteFilmsLoading: false,
@@ -37,6 +40,13 @@ export const dataProcess = createSlice({
       .addCase(fetchFilmsAction.fulfilled, (state, action) => {
         state.films = action.payload;
         state.isFilmsLoading = false;
+      })
+      .addCase(fetchFilmAction.pending, (state) => {
+        state.isFilmLoading = true;
+      })
+      .addCase(fetchFilmAction.fulfilled, (state, action) => {
+        state.film = action.payload;
+        state.isFilmLoading = false;
       })
       .addCase(fetchSimilarFilmsAction.pending, (state) => {
         state.isSimilarFilmsLoading = true;
